@@ -187,6 +187,15 @@
                     <p class="card-text text-truncate text-right">
                       {{ row["Temporal reference"] }}
                     </p>
+                    <div class="col-md-3 mb-2 mb-md-0">
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary"
+                        style="width: 66%"
+                      >
+                        Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
