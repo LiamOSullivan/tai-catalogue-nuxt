@@ -187,19 +187,24 @@
                     <p class="card-text text-truncate text-right">
                       {{ row["Temporal reference"] }}
                     </p>
-                    <div class="row">
-                      <div class="col-md-6 mb-2 mb-md-0">
+                    <div class="row justify-content-end">
+                      <div
+                        class="col-md-6 mb-2 mb-md-0 d-flex justify-content-end"
+                      >
                         <button
                           type="button"
-                          class="btn btn-outline-primary"
+                          class="btn btn-outline-primary m-1"
                           style="width: 33%"
                         >
                           Details
                         </button>
+                        <!-- TODO: add tooltips for diabled buttons/features -->
                         <button
                           type="button"
-                          class="btn btn-outline-danger"
+                          class="btn btn-outline-info m-1"
                           style="width: 33%"
+                          :disabled="!hasViewerUrl(row)"
+                          @click="openLink(hasViewerUrl(row))"
                         >
                           View Data
                         </button>
@@ -310,6 +315,22 @@ export default Vue.extend({
     filterList,
     startsWithFilter(value: string) {
       return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
+    },
+    hasViewerUrl(row: any) {
+      // TODO: do empty table values return undefined?
+      const hasUrl =
+        row["data_viewer (not an INSPIRE Column)"] !== null &&
+        row["data_viewer (not an INSPIRE Column)"].toLowerCase() !== "none"
+          ? row["data_viewer (not an INSPIRE Column)"].toString()
+          : false;
+      return hasUrl;
+    },
+    openLink(url: string) {
+      window.open(url);
+    },
+
+    print(text: string) {
+      console.log(text);
     },
   },
 });
