@@ -207,6 +207,9 @@
                           @click="openLink(hasViewerUrl(row))"
                         >
                           View Data
+                          <font-awesome-icon
+                            icon="fa-solid fa-up-right-from-square"
+                          />
                         </button>
                       </div>
                     </div>
@@ -248,6 +251,9 @@ import {
 import { debounce } from "../helpers";
 import Papa from "papaparse";
 import "bootstrap/dist/css/bootstrap.css";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Dataset,
@@ -257,6 +263,10 @@ import {
   DatasetSearch,
   DatasetShow,
 } from "vue-dataset";
+
+library.add(faUpRightFromSquare);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.config.productionTip = false;
 
 export default Vue.extend({
   name: "DataCatalogue",
