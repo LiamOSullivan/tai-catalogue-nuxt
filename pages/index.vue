@@ -296,3 +296,14 @@ export default Vue.extend({
   },
 });
 </script>
+<style scoped>
+.btn-group .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 10;
+}
+.card {
+  width: 100%;
+}
+</style>
