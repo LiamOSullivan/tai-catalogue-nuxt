@@ -196,7 +196,7 @@
                           type="button"
                           class="btn btn-sm btn-outline-primary m-1"
                           style="width: 33%"
-                          @click.prevent="gotoDetails()"
+                          @click.prevent="gotoDetails(row)"
                         >
                           <!-- <NuxtLink to="/details"> Details </NuxtLink> -->
                           Details
@@ -355,8 +355,11 @@ export default Vue.extend({
     openLink(url: string) {
       window.open(url);
     },
-    gotoDetails() {
-      window.location.href = "/details";
+    gotoDetails(row: any) {
+      const rowName = row["Resource title"].toString().replaceAll(" ", "-");
+
+      // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
+      window.location.href = `/details/${rowName}`;
     },
 
     print(text: string) {
