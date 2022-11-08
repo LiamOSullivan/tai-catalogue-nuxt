@@ -11,7 +11,7 @@
     <div class="row mb-1">
       <div class="col-md-6 mb-2 mb-md-0">
         <label for="ref-buttons">Choose Reference Type</label>
-        <div class="btn-group" name="ref-buttons">
+        <div class="btn-group btn-group-sm" name="ref-buttons">
           <button
             type="button"
             class="btn btn-outline-secondary"
@@ -97,7 +97,7 @@
         <label> Filter by Site Name </label><br />
         <input
           type="text"
-          class="form-control"
+          class="form-control form-control-sm"
           placeholder="Name starts with..."
           :value="startsWith"
           @input="startWithInput($event)"
@@ -129,6 +129,7 @@
           <label> Text Search</label><br />
           <dataset-search
             ds-search-placeholder="Search for a word or exact phrase..."
+            class="form-control-sm"
           />
         </div>
       </div>
@@ -142,7 +143,7 @@
           <label> Sort by </label><br />
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-sm btn-outline-secondary"
             style="width: 100%"
             @click="resourceTitleAsc = !resourceTitleAsc"
           >
@@ -193,18 +194,20 @@
                       >
                         <button
                           type="button"
-                          class="btn btn-outline-primary m-1"
+                          class="btn btn-sm btn-outline-primary m-1"
                           style="width: 33%"
+                          @click.prevent="gotoDetails()"
                         >
+                          <!-- <NuxtLink to="/details"> Details </NuxtLink> -->
                           Details
                         </button>
                         <!-- TODO: add tooltips for diabled buttons/features -->
                         <button
                           type="button"
-                          class="btn btn-outline-info m-1"
+                          class="btn btn-sm btn-outline-info m-1"
                           style="width: 33%"
-                          :disabled="!hasViewerUrl(row)"
-                          @click="openLink(hasViewerUrl(row))"
+                          :disabled="!getViewerUrl(row)"
+                          @click="openLink(getViewerUrl(row))"
                         >
                           View Data
                           <font-awesome-icon
@@ -234,7 +237,7 @@
         "
       >
         <dataset-info class="mb-2 mb-md-0" />
-        <dataset-pager />
+        <dataset-pager class="pagination-sm" />
       </div>
     </dataset>
   </div>
@@ -315,7 +318,21 @@ export default Vue.extend({
       console.log("error fetching data " + error);
     }
   },
-  mounted() {},
+  mounted() {
+    // override some vue-dataset defaults
+    let showFormSelect: any = document.querySelector(
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
+    );
+    showFormSelect.classList.add("form-control-sm");
+    let showFormLabelPre: any = document.querySelector(
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
+    );
+    showFormLabelPre.style.display = "none";
+    let showFormLabelPost: any = document.querySelector(
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
+    );
+    showFormLabelPost.style.display = "none";
+  },
   computed: {
     sortResourceTitle() {
       return this.resourceTitleAsc ? "Resource title" : "-Resource title";
@@ -326,7 +343,7 @@ export default Vue.extend({
     startsWithFilter(value: string) {
       return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
     },
-    hasViewerUrl(row: any) {
+    getViewerUrl(row: any) {
       // TODO: do empty table values return undefined?
       const hasUrl =
         row["data_viewer (not an INSPIRE Column)"] !== null &&
@@ -337,6 +354,9 @@ export default Vue.extend({
     },
     openLink(url: string) {
       window.open(url);
+    },
+    gotoDetails() {
+      window.location.href = "/details";
     },
 
     print(text: string) {
