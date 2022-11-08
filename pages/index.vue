@@ -356,7 +356,10 @@ export default Vue.extend({
       window.open(url);
     },
     gotoDetails(row: any) {
-      const rowName = row["Resource title"].toString().replaceAll(" ", "-");
+      const rowName = row["Resource title"]
+        .toString()
+        .trim()
+        .replaceAll(" ", "-");
 
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
       window.location.href = `/details/${rowName}`;
