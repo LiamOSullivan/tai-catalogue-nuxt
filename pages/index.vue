@@ -332,17 +332,17 @@ export default Vue.extend({
   mounted() {
     // override some vue-dataset defaults
     let showFormSelect: any = document.querySelector(
-      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
+      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
     );
     showFormSelect.classList.add("form-control-sm");
     let showFormLabelPre: any = document.querySelector(
-      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
+      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
     );
     showFormLabelPre.style.display = "none";
     let showFormLabelPost: any = document.querySelector(
-      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
+      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
     );
-    showFormLabelPost.style.display = "none";
+    // showFormLabelPost.style.display = "none";
   },
   computed: {
     sortResourceTitle() {
