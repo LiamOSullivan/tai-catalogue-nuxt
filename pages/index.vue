@@ -7,9 +7,9 @@
       </div>
     </div>
     -->
-    <div class="row mb-1">
-      <div class="col-md-6 mb-2 mb-md-0">
-        <div ref="map-root" style="width: 100%; height: 100%" />
+    <div class="row mb-3 mt-3">
+      <div class="col-md-6 mb-1 mb-md-0" style="width: 100%; height: 400px">
+        <MapContainer />
       </div>
     </div>
 
@@ -262,6 +262,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import MapContainer from "~/components/MapContainer.vue";
 
 import {
   Dataset,
@@ -285,6 +286,7 @@ export default Vue.extend({
     DatasetPager,
     DatasetSearch,
     DatasetShow,
+    MapContainer,
   },
   data: () => {
     const data: {
