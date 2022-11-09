@@ -7,6 +7,11 @@
       </div>
     </div>
     -->
+    <div class="row mb-1">
+      <div class="col-md-6 mb-2 mb-md-0">
+        <div ref="map-root" style="width: 100%; height: 100%" />
+      </div>
+    </div>
 
     <div class="row mb-1">
       <div class="col-md-6 mb-2 mb-md-0">
@@ -298,17 +303,23 @@ export default Vue.extend({
 
     const self = this;
     try {
-      const url = "https://tai-api.terrainai.com/api/v1/dc/dc-data/";
+      const useGeoSearch = true;
+      let url = "https://tai-api.terrainai.com/api/v1/dc/dc-data/";
+      if (useGeoSearch) {
+        url =
+          "https://tai-api.terrainai.com/api/v1/dc/dc-data-geo/?search_area=SRID%3D4326%3BMULTIPOLYGON(((-6.7731%2053.6116%2C-6.7707%2053.7014%2C-6.6181%2053.6999%2C-6.6208%2053.6101%2C-6.7731%2053.6116)))&project=tai&format=csv";
+        console.log("use geo search");
+      }
       Papa.parse(url, {
         download: true,
         header: true,
         complete: function (results) {
           if (results && results.errors) {
-            if (results.errors) {
-              console.log("results errors: " + results.errors);
+            if (results.errors.length > 0) {
+              console.log("Results errors: ", results.errors);
             }
             if (results.data && results.data.length > 0) {
-              // console.log("Results:", results);
+              console.log("Results:", results);
               self.records = results.data;
             }
           }
