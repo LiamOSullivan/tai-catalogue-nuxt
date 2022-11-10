@@ -161,7 +161,8 @@ export default Vue.extend({
   },
   methods: {
     emitExtent() {
-      console.log("extent: ", this.extent);
+      console.log("emit extent: ", this.extent);
+      this.$emit("extent", this.extent);
     },
     clearExtent() {
       map.removeInteraction(extentInteraction);
