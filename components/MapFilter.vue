@@ -171,6 +171,7 @@ export default Vue.extend({
         condition: shiftKeyOnly,
       });
       map.addInteraction(extentInteraction);
+      this.$emit("extent", this.extent);
     },
   },
 });

@@ -12,7 +12,7 @@
         class="col-md-12 mb-1 mb-md-0"
         style="width: 100%; min-height: 400px"
       >
-        <MapFilter @extent="getExtent" />
+        <MapFilter @extent="filterOnExtent" />
       </div>
     </div>
 
@@ -256,13 +256,14 @@ import {
   //   isoDateToEuroDate,
   //   searchAsEuroDate,
 } from "../utilities";
-import { debounce } from "../helpers";
+
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import MapFilter from "~/components/MapFilter.vue";
 import GeoJSON from "ol/format/GeoJSON";
+import Vector from "ol/source/Vector";
 
 import {
   Dataset,
@@ -272,11 +273,11 @@ import {
   DatasetSearch,
   DatasetShow,
 } from "vue-dataset";
-import { set } from "ol/transform";
 
 library.add(faUpRightFromSquare);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
+let cache: any[] = [];
 
 export default Vue.extend({
   name: "DataCatalogue",
@@ -339,15 +340,15 @@ export default Vue.extend({
   mounted() {
     // override some vue-dataset defaults
     let showFormSelect: any = document.querySelector(
-      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
     );
     showFormSelect.classList.add("form-control-sm");
     let showFormLabelPre: any = document.querySelector(
-      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
     );
     showFormLabelPre.style.display = "none";
     let showFormLabelPost: any = document.querySelector(
-      "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
+      "#__layout > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
     );
     showFormLabelPost.style.display = "none";
   },
@@ -377,9 +378,25 @@ export default Vue.extend({
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
       window.location.href = `/details/${rowName}?id=${id}`;
     },
-    getExtent(extent: any) {
+    filterOnExtent(extent: any) {
       console.log("got an extent to filter on " + extent);
       console.log(this.records[0]);
+
+      if (extent) {
+        const recordsSource = new Vector({
+          features: this.records,
+        });
+        let recordsIxFeatures: any[] = [];
+
+        recordsSource.forEachFeatureIntersectingExtent(extent, (f) => {
+          recordsIxFeatures.push(f);
+          return false;
+        });
+        cache = this.records;
+        this.records = recordsIxFeatures;
+      } else {
+        this.records = cache;
+      }
     },
     print(text: string) {
       console.log(text);
