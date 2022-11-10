@@ -8,7 +8,8 @@
     </div>
     -->
     <div class="row mb-3 mt-3">
-      <div class="col-md-6 mb-1 mb-md-0" style="width: 100%; height: 400px">
+      <div class="col-md-12 mb-1 mb-md-0" style="width: 100%; height: 100%">
+        <label>Location Search- shift-drag to draw a bounding box</label>
         <MapContainer />
       </div>
     </div>
@@ -344,7 +345,7 @@ export default Vue.extend({
     let showFormLabelPost: any = document.querySelector(
       "#__layout > div > div:nth-child(4) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
     );
-    // showFormLabelPost.style.display = "none";
+    showFormLabelPost.style.display = "none";
   },
   computed: {
     sortResourceTitle() {
@@ -373,9 +374,10 @@ export default Vue.extend({
         .toString()
         .trim()
         .replaceAll(" ", "-");
+      const id = parseInt(row["DC ID"]);
 
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
-      window.location.href = `/details/${rowName}`;
+      window.location.href = `/details/${rowName}?id=${id}`;
     },
 
     print(text: string) {

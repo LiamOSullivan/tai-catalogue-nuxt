@@ -105,10 +105,16 @@
             Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
             tellus ac cursus commodo, tortor mauris condimentum nibh, ut
             fermentum massa justo sit amet risus. Etiam porta sem malesuada
-            magna mollis euismod. Donec sed odio dui.
+            magna mollis euismod. Donec sed odio dui. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Facere unde sunt delectus? Porro
+            recusandae dicta aliquam doloremque exercitationem suscipit deleniti
+            est quod commodi? Laboriosam voluptatibus dicta, repudiandae sed
+            sequi illum.
           </p>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6" style="min-height: 40vh">
+          <MapContainer />
+        </div>
       </div>
       <!-- <div class="row">
         <div class="col-md-6">
@@ -179,27 +185,49 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import MapContainer from "~/components/MapContainer.vue";
 library.add(faArrowLeft);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 export default Vue.extend({
-  name: "Dataset",
+  name: "Details",
+  data: () => {
+    const data: {
+      row: any;
+    } = { row: {} };
+
+    return data;
+  },
+
+  async created() {
+    const baseURLJson =
+      "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai&format=json";
+    const id = this.$route.query.id;
+    console.log("getting data for row " + id);
+    try {
+      const result = await axios.get(`${baseURLJson}&dc_id=${id}`);
+      console.log("got row data");
+      console.log(result);
+    } catch (error) {
+      console.warn("Error fetching data from Met API", error);
+    }
+  },
+
+  mounted() {},
   methods: {
     goToPrev() {
       this.$router.go(-1);
       // window.location.href = "/";
     },
   },
-  created() {
-    console.log(this.$route.params);
-  },
-  mounted() {},
 });
 </script>
+

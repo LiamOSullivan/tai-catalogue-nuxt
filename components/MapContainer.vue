@@ -1,5 +1,5 @@
 <template>
-  <div ref="map-root" style="width: 100%; height: 100%" />
+  <div ref="map-root" style="width: 100%; height: 90%" />
 </template>
 
 <script>
@@ -71,7 +71,7 @@ export default {
         return true;
       }
       const pixel = netMap.getEventPixel(evt.originalEvent);
-      displayFeatureInfo(pixel);
+      // displayFeatureInfo(pixel);
     });
 
     netMap.on("click", function (evt) {
