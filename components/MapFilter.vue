@@ -7,27 +7,31 @@
       <label>Filter Results by Area</label>
       <div ref="map-root" style="width: 100%; height: 90%" />
     </div>
-    <div class="col-md-4 mb-1 mb-md-0" style="width: 100%; height: inherit">
-      <label> Current extent: </label><br />
-      <p>
-        <small>{{
-          extent !== null ? extent : "Shift + Drag on map to draw an area"
-        }}</small>
-      </p>
-      <button
-        type="button"
-        class="btn btn-outline-secondary"
-        @click.prevent="emitExtent()"
-      >
-        Apply
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-secondary"
-        @click.prevent="clearExtent()"
-      >
-        Clear
-      </button>
+    <div id="map-filter__controls" class="col-md-4 mb-1 mb-md-0">
+      <div id="map-filter__controls__area">
+        <label> Current Area: </label><br />
+        <p>
+          <small>{{
+            extent !== null ? extent : "Shift + drag on map to draw an area"
+          }}</small>
+        </p>
+      </div>
+      <div id="map-filter__controls__btns">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          @click.prevent="emitExtent()"
+        >
+          Apply
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          @click.prevent="clearExtent()"
+        >
+          Clear
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -134,7 +138,9 @@ export default Vue.extend({
     const self = this;
     map.on("pointermove", function (evt) {
       if (evt.dragging) {
-        self.extent = extentInteraction.getExtent();
+        self.extent = extentInteraction.getExtent().map((e) => {
+          return parseFloat(e.toFixed(2));
+        });
         console.log(self.extent);
       }
       // const pixel = map.getEventPixel(evt.originalEvent);
@@ -168,3 +174,23 @@ export default Vue.extend({
   },
 });
 </script>
+<style scoped>
+#map-filter__controls {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#map-filter__controls__area {
+  min-height: 50%;
+}
+#map-filter__controls__btns {
+  min-height: 50%;
+  width: 33%;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+</style>
