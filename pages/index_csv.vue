@@ -38,7 +38,7 @@
             @click.prevent="refFilter = 'Spaceborne'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "Spaceborne" }).length
+              filterList(records, { Reference: "Spaceborne" }).length
             }}</span>
             Spaceborne
           </button>
@@ -49,7 +49,7 @@
             @click.prevent="refFilter = 'Airborne'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "Airborne" }).length
+              filterList(records, { Reference: "Airborne" }).length
             }}</span>
             Airborne
           </button>
@@ -60,7 +60,7 @@
             @click.prevent="refFilter = 'UAV'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "UAV" }).length
+              filterList(records, { Reference: "UAV" }).length
             }}</span>
             UAV
           </button>
@@ -71,7 +71,7 @@
             @click.prevent="refFilter = 'GIS'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "GIS" }).length
+              filterList(records, { Reference: "GIS" }).length
             }}</span>
             GIS
           </button>
@@ -82,7 +82,7 @@
             @click.prevent="refFilter = 'In-situ'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "In-situ" }).length
+              filterList(records, { Reference: "In-situ" }).length
             }}</span>
             In-situ
           </button>
@@ -93,7 +93,7 @@
             @click.prevent="refFilter = 'Modelled'"
           >
             <span class="badge bg-secondary text-white">{{
-              filterList(records, { ref: "Modelled" }).length
+              filterList(records, { Reference: "Modelled" }).length
             }}</span>
             Modelled
           </button>
@@ -120,11 +120,16 @@
       v-slot="{ ds }"
       :ds-data="records"
       :ds-filter-fields="{
-        ref: refFilter,
-        name: startsWithFilter,
+        Reference: refFilter,
+        'Site name': startsWithFilter,
       }"
       :ds-sortby="[sortResourceTitle]"
-      :ds-search-in="['topic_cat', 'sub_cat', 'res_abs', 'keyword']"
+      :ds-search-in="[
+        'Topic category',
+        'Sub Category',
+        'Resource abstract',
+        'Keyword',
+      ]"
       :ds-search-as="{}"
     >
       <div class="row mb-1">
@@ -173,23 +178,23 @@
                       class="card-title text-truncate mb-2"
                       :title="`Index: ${rowIndex}`"
                     >
-                      {{ row["res_title"] }}
+                      {{ row["Resource title"] }}
                     </h5>
                     <h6 class="card-subtitle text-truncate text-muted">
-                      {{ row["ref"] }} |
+                      {{ row["Reference"] }} |
                       {{
-                        row["topic_cat"] !== "Other"
-                          ? row["topic_cat"]
+                        row["Topic category"] !== "Other"
+                          ? row["Topic category"]
                           : "No Specific Terrain"
                       }}
                       |
-                      {{ row["sub_cat"] }}
+                      {{ row["Sub Category"] }}
                     </h6>
                     <small class="card-text mb-0">
-                      {{ row["res_abs"] }}
+                      {{ row["Resource abstract"] }}
                     </small>
                     <p class="card-text text-truncate text-right">
-                      {{ row["date_from"] }} to {{ row["date_to"] }}
+                      {{ row["Temporal reference"] }}
                     </p>
                     <div class="row justify-content-end">
                       <div
@@ -249,7 +254,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
 import {
   filterList,
   //   isoDateToEuroDate,
@@ -262,8 +266,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import MapFilter from "~/components/MapFilter.vue";
-import GeoJSON from "ol/format/GeoJSON";
-//  const geojson = new ol.format.GeoJSON()
 
 import {
   Dataset,
@@ -299,7 +301,7 @@ export default Vue.extend({
 
     return data;
   },
-  async created() {
+  created() {
     const startWithInput = debounce((e: any) => {
       this.startsWith = e.target.value;
     }, 500);
@@ -307,25 +309,27 @@ export default Vue.extend({
     const self = this;
     try {
       const useGeoSearch = false;
-      let baseURLJson =
-        "https://tai-api.terrainai.com/api/v1/dc/dc-data?format=json";
-      // const baseURLJson =
-      //   "https://tai-api.terrainai.com/api/v1/dc/dc-id-data/?format=json";
-      try {
-        const res = await axios.get(`${baseURLJson}`);
-        console.log("got row data");
-
-        const features = new GeoJSON().readFeatures(res.data[0], {
-          dataProjection: "EPSG:4326",
-          featureProjection: "EPSG:3857",
-        });
-        features.forEach((f) => {
-          this.records.push(f.getProperties());
-        });
-        console.log(this.records[0]);
-      } catch (error) {
-        console.warn("Error fetching data from Met API", error);
+      let url = "https://tai-api.terrainai.com/api/v1/dc/dc-data/&format=csv";
+      if (useGeoSearch) {
+        url =
+          "https://tai-api.terrainai.com/api/v1/dc/dc-data-geo/?search_area=SRID%3D4326%3BMULTIPOLYGON(((-6.7731%2053.6116%2C-6.7707%2053.7014%2C-6.6181%2053.6999%2C-6.6208%2053.6101%2C-6.7731%2053.6116)))&project=tai&format=csv";
+        console.log("use geo search");
       }
+      Papa.parse(url, {
+        download: true,
+        header: true,
+        complete: function (results) {
+          if (results && results.errors) {
+            if (results.errors.length > 0) {
+              console.log("Results errors: ", results.errors);
+            }
+            if (results.data && results.data.length > 0) {
+              console.log("Results:", results);
+              self.records = results.data;
+            }
+          }
+        },
+      });
     } catch (error) {
       console.log("error fetching data " + error);
     }
@@ -347,7 +351,7 @@ export default Vue.extend({
   },
   computed: {
     sortResourceTitle() {
-      return this.resourceTitleAsc ? "res_title" : "-res_title";
+      return this.resourceTitleAsc ? "Resource title" : "-Resource title";
     },
   },
   methods: {
@@ -358,9 +362,9 @@ export default Vue.extend({
     getViewerUrl(row: any) {
       // TODO: do empty table values return undefined?
       const hasUrl =
-        row["data_viewer"] !== null &&
-        row["data_viewer"].toLowerCase() !== "none"
-          ? row["data_viewer"].toString()
+        row["data_viewer (not an INSPIRE Column)"] !== null &&
+        row["data_viewer (not an INSPIRE Column)"].toLowerCase() !== "none"
+          ? row["data_viewer (not an INSPIRE Column)"].toString()
           : false;
       return hasUrl;
     },
@@ -368,8 +372,11 @@ export default Vue.extend({
       window.open(url);
     },
     gotoDetails(row: any) {
-      const rowName = row["res_title"].toString().trim().replaceAll(" ", "-");
-      const id = parseInt(row["dc_id"]);
+      const rowName = row["Resource title"]
+        .toString()
+        .trim()
+        .replaceAll(" ", "-");
+      const id = parseInt(row["DC ID"]);
 
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
       window.location.href = `/details/${rowName}?id=${id}`;
