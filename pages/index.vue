@@ -8,9 +8,11 @@
     </div>
     -->
     <div class="row mb-3 mt-3">
-      <div class="col-md-12 mb-1 mb-md-0" style="width: 100%; height: 100%">
-        <label>Location Search- shift-drag to draw a bounding box</label>
-        <MapContainer />
+      <div
+        class="col-md-12 mb-1 mb-md-0"
+        style="width: 100%; min-height: 400px"
+      >
+        <MapFilter />
       </div>
     </div>
 
@@ -263,7 +265,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import MapContainer from "~/components/MapContainer.vue";
+import MapFilter from "~/components/MapFilter.vue";
 
 import {
   Dataset,
@@ -287,7 +289,7 @@ export default Vue.extend({
     DatasetPager,
     DatasetSearch,
     DatasetShow,
-    MapContainer,
+    MapFilter,
   },
   data: () => {
     const data: {
@@ -379,6 +381,7 @@ export default Vue.extend({
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
       window.location.href = `/details/${rowName}?id=${id}`;
     },
+    filterOnExtent() {},
 
     print(text: string) {
       console.log(text);

@@ -209,7 +209,7 @@ export default Vue.extend({
 
   async created() {
     const baseURLJson =
-      "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai&format=json";
+      "https://tai-api.terrainai.com/api/v1/dc/dc-id-data/?format=json";
     const id = this.$route.query.id;
     console.log("getting data for row " + id);
     try {

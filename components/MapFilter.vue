@@ -4,17 +4,27 @@
       class="col-md-8 mb-1 mb-md-0"
       style="width: 100%; min-height: inherit; height: inherit"
     >
+      <label>Filter Results by Area</label>
       <div ref="map-root" style="width: 100%; height: 90%" />
     </div>
     <div class="col-md-4 mb-1 mb-md-0" style="width: 100%; height: inherit">
-      <label> </label><br />
-      <button type="button" class="btn btn-outline-secondary" @click.prevent="">
+      <label> Current extent: </label><br />
+      <p>
+        <small>{{
+          extent !== null ? extent : "Shift + Drag on map to draw an area"
+        }}</small>
+      </p>
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        @click.prevent="emitExtent()"
+      >
         Apply
       </button>
       <button
         type="button"
         class="btn btn-outline-secondary"
-        @click.prevent="emitExtent()"
+        @click.prevent="clearExtent()"
       >
         Clear
       </button>
@@ -34,27 +44,28 @@ import Feature from "ol/Feature";
 import Polygon from "ol/geom/Polygon";
 import Draw from "ol/interaction/Draw";
 import ExtentInteraction from "ol/interaction/Extent";
+import { shiftKeyOnly } from "ol/events/condition";
 // import Cluster from "ol/source/Cluster";
 import GeoJSON from "ol/format/GeoJSON";
 import { Style, Fill, Stroke, Circle, Text } from "ol/style";
 import "ol/ol.css";
 // import { loadMetStations } from "~/utils/loadMetStations";
 
+let extentInteraction;
+let map;
 export default Vue.extend({
   name: "MapContainer",
   data: () => {
-    let extent = {};
-    return extent;
+    return { extent: null };
   },
   async mounted() {
-    const self = this;
     const drawSource = new VectorSource({ wrapX: false });
 
     const drawVector = new VectorLayer({
       source: drawSource,
     });
 
-    const map = new Map({
+    map = new Map({
       layers: [
         new TileLayer({
           source: new OSM(),
@@ -68,21 +79,23 @@ export default Vue.extend({
         constrainResolution: true,
       }),
     });
-    console.log(this.$refs);
+
     map.setTarget(this.$refs["map-root"]);
-    const extentInteraction = new ExtentInteraction({});
+    extentInteraction = new ExtentInteraction({
+      condition: shiftKeyOnly,
+    });
     map.addInteraction(extentInteraction);
 
-    extentInteraction.on("extentend", (listener) => {
-      console.log("extentchanged");
-    });
+    // extentInteraction.on("extentend", (listener) => {
+    //   console.log("extentchanged");
+    // });
 
-    let extent = extentInteraction.getExtent();
-    if (extent) {
-      const poly = new Polygon(extent);
-      let geojson = new GeoJSON().writeFeatures([new Feature()]);
-      console.log(geojson);
-    }
+    // this.extent = extentInteraction.getExtent();
+    // if (extent) {
+    //   const poly = new Polygon(extent);
+    //   let geojson = new GeoJSON().writeFeatures([new Feature()]);
+    //   console.log(geojson);
+    // }
 
     let draw = new Draw({
       source: drawSource,
@@ -118,10 +131,11 @@ export default Vue.extend({
 
     // const hoverOverlay = await getHoverOverlayFeature(map);
     let highlight;
-
+    const self = this;
     map.on("pointermove", function (evt) {
       if (evt.dragging) {
-        return true;
+        self.extent = extentInteraction.getExtent();
+        console.log(self.extent);
       }
       // const pixel = map.getEventPixel(evt.originalEvent);
       // displayFeatureInfo(pixel);
@@ -140,7 +154,17 @@ export default Vue.extend({
     });
   },
   methods: {
-    emitExtent: () => {},
+    emitExtent() {
+      console.log("extent: ", this.extent);
+    },
+    clearExtent() {
+      map.removeInteraction(extentInteraction);
+      this.extent = null;
+      extentInteraction = new ExtentInteraction({
+        condition: shiftKeyOnly,
+      });
+      map.addInteraction(extentInteraction);
+    },
   },
 });
 </script>
