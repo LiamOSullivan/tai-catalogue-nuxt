@@ -47,7 +47,7 @@ export default Vue.extend({
       }),
     });
     map.setTarget(this.$refs["map-root"]);
-    console.log("MapBbox poly: ", this.poly);
+
     const bboxStroke = new Stroke({
       color: "rgba(255, 0, 0, 0.7)",
       width: 2,

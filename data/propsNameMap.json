@@ -1,0 +1,80 @@
+{
+  "ref": {
+    "long_name": "Reference"
+  },
+  "attr": {
+    "long_name": "Attribution"
+  },
+  "name": {
+    "long_name": "Site name"
+  },
+  "tai_id": {
+    "long_name": "Site ID"
+  },
+  "res_title": {
+    "long_name": "Resource title"
+  },
+  "res_abs": {
+    "long_name": "Resource abstract"
+  },
+  "res_type": {
+    "long_name": "Resource type"
+  },
+  "instrument": {
+    "long_name": "Instrument"
+  },
+  "res_loc": {
+    "long_name": "Resource locator"
+  },
+  "uri": {
+    "long_name": "Unique resource identifier"
+  },
+  "res_lang": {
+    "long_name": "Resource language"
+  },
+  "topic_cat": {
+    "long_name": "Topic category"
+  },
+  "sub_cat": {
+    "long_name": "Sub Category"
+  },
+  "keyword": {
+    "long_name": "Keyword"
+  },
+  "date_from": {
+    "long_name": "Temporal reference (First Part)"
+  },
+  "date_to": {
+    "long_name": "Temporal reference (Last Part)"
+  },
+  "lineage": {
+    "long_name": "Lineage"
+  },
+  "spatial_res": {
+    "long_name": "Spatial resolution"
+  },
+  "conformity": {
+    "long_name": "Conformity"
+  },
+  "conditions": {
+    "long_name": "Conditions for access and use"
+  },
+  "limitations": {
+    "long_name": "Limitations on public access"
+  },
+  "resp_org": {
+    "long_name": "Responsible organisation"
+  },
+  "poc": {
+    "long_name": "Metadata point of contact"
+  },
+  "meta_date": {
+    "long_name": "Metadata date"
+  },
+  "meta_lang": {
+    "long_name": "Metadata language"
+  },
+  "data_viewer": {
+    "long_name": "data_viewer (not an INSPIRE Column)"
+  }
+}
