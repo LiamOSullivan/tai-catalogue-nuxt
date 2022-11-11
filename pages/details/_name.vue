@@ -63,7 +63,7 @@ export default Vue.extend({
     const data: {
       data: any;
       abstract: string;
-      ref_title: string;
+      res_title: string;
       poly: any;
     } = { data: {}, poly: null, abstract: "", res_title: "" };
 
@@ -74,7 +74,7 @@ export default Vue.extend({
     const baseURLJson =
       "https://tai-api.terrainai.com/api/v1/dc/dc-id-data/?format=json";
     const id = this.$route.query.id;
-    console.log("getting details for row " + id);
+    // console.log("getting details for row " + id);
     try {
       const res = await axios.get(`${baseURLJson}&dc_id=${id}`);
       const features = new GeoJSON().readFeatures(res.data[0], {
@@ -82,14 +82,6 @@ export default Vue.extend({
         featureProjection: "EPSG:3857",
       });
 
-      for (const key in features[0].getProperties()) {
-        if (
-          Object.prototype.hasOwnProperty.call(features[0].getProperties(), key)
-        ) {
-          const element = features[0].getProperties()[key];
-          console.log(key, element);
-        }
-      }
       // destructure to rm unwanted props from display
       const {
         geometry,
@@ -109,8 +101,6 @@ export default Vue.extend({
           : null;
       this.abstract = res_abs;
       this.res_title = res_title.trim();
-
-      console.log(this.data);
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
     }
