@@ -372,7 +372,12 @@ export default Vue.extend({
       window.open(url);
     },
     gotoDetails(row: any) {
-      const rowName = row["res_title"].toString().trim().replaceAll(" ", "-");
+      const rowName = row["res_title"]
+        .toString()
+        .trim()
+        .replaceAll(" ", "-")
+        .replaceAll("/", "-");
+
       const id = parseInt(row.getProperties()["dc_id"]);
 
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
