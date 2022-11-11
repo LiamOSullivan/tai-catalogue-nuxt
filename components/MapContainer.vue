@@ -1,23 +1,11 @@
 <template>
   <div class="row" style="width: 100%; min-height: inherit; height: inherit">
     <div
-      class="col-md-8 mb-1 mb-md-0"
+      class="col-md-12 mb-1 mb-md-0"
       style="width: 100%; min-height: inherit; height: inherit"
     >
-      <div ref="map-root" style="width: 100%; height: 90%" />
-    </div>
-    <div class="col-md-4 mb-1 mb-md-0" style="width: 100%; height: inherit">
-      <label> </label><br />
-      <button type="button" class="btn btn-outline-secondary" @click.prevent="">
-        Apply
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline-secondary"
-        @click.prevent="emitExtent()"
-      >
-        Clear
-      </button>
+      <label for="map-root">Dataset Spatial Extent</label>
+      <div name="map-root" ref="map-root" style="width: 100%; height: 90%" />
     </div>
   </div>
 </template>

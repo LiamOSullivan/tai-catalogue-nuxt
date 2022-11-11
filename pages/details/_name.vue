@@ -99,7 +99,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <h3>Resource Abstract</h3>
           <p>
             Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
@@ -112,8 +112,8 @@
             sequi illum.
           </p>
         </div>
-        <div class="col-md-6" style="min-height: 40vh">
-          <MapContainer />
+        <div class="col-md-4" style="min-height: 40vh">
+          <MapBBox :poly="poly" />
         </div>
       </div>
       <!-- <div class="row">
@@ -192,17 +192,20 @@ import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import MapContainer from "~/components/MapContainer.vue";
+import GeoJSON from "ol/format/GeoJSON";
+import Vector from "ol/source/Vector";
+import MapBBox from "~/components/MapContainer.vue";
 library.add(faArrowLeft);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 export default Vue.extend({
-  name: "Details",
+  name: "DatasetDetails",
   data: () => {
     const data: {
-      row: any;
-    } = { row: {} };
+      data: any;
+      poly: any;
+    } = { data: {}, poly: {} };
 
     return data;
   },
@@ -211,13 +214,23 @@ export default Vue.extend({
     const baseURLJson =
       "https://tai-api.terrainai.com/api/v1/dc/dc-id-data/?format=json";
     const id = this.$route.query.id;
-    console.log("getting data for row " + id);
+    console.log("getting details for row " + id);
     try {
-      const result = await axios.get(`${baseURLJson}&dc_id=${id}`);
-      console.log("got row data");
-      console.log(result);
+      const res = await axios.get(`${baseURLJson}&dc_id=${id}`);
+      console.log("got details");
+      const features = new GeoJSON().readFeatures(res.data[0], {
+        dataProjection: "EPSG:4326",
+        featureProjection: "EPSG:3857",
+      });
+      this.data = features[0];
+      this.poly =
+        features[0].getGeometry() !== undefined
+          ? features[0].getGeometry()
+          : null;
+
+      console.log(this.poly);
     } catch (error) {
-      console.warn("Error fetching data from Met API", error);
+      console.warn("Error fetching data from Catalogue API", error);
     }
   },
 
