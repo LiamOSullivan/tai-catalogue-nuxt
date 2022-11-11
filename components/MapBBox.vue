@@ -4,7 +4,6 @@
       class="col-md-12 mb-1 mb-md-0"
       style="width: 100%; min-height: inherit; height: inherit"
     >
-      <label for="map-root">Dataset Spatial Extent</label>
       <div name="map-root" ref="map-root" style="width: 100%; height: 90%" />
     </div>
   </div>
@@ -25,17 +24,16 @@ import GeoJSON from "ol/format/GeoJSON";
 import { Style, Fill, Stroke, Circle, Text } from "ol/style";
 import "ol/ol.css";
 // import { loadMetStations } from "~/utils/loadMetStations";
-
+let map;
 export default Vue.extend({
   name: "MapBBox",
   props: ["poly"],
   data: () => {
     return {};
   },
-  async mounted() {
-    console.log("MapBbox poly: ", this.poly);
-
-    const map = new Map({
+  created() {},
+  mounted() {
+    map = new Map({
       layers: [
         new TileLayer({
           source: new OSM(),
@@ -49,12 +47,11 @@ export default Vue.extend({
       }),
     });
     map.setTarget(this.$refs["map-root"]);
-
+    console.log("MapBbox poly: ", this.poly);
     const bboxStroke = new Stroke({
-      color: "rgba(255, 255, 255, 0.7)",
+      color: "rgba(255, 0, 0, 0.7)",
       width: 2,
     });
-
     const bboxCircle = new Circle({
       radius: 10,
       stroke: new Stroke({
@@ -62,28 +59,19 @@ export default Vue.extend({
         width: 2,
       }),
     });
-
     const bboxStyle = new Style({
       stroke: bboxStroke,
       image: bboxCircle,
     });
-
+    const bboxFeature = new Feature(this.poly);
     const bboxSource = new VectorSource({ wrapX: false });
-    let bboxFeature = new Feature(this.poly);
     bboxSource.addFeature(bboxFeature);
     const bbox = new VectorLayer({
       source: bboxSource,
     });
     bbox.setStyle(bboxStyle);
     map.addLayer(bbox);
-
-    setTimeout(() => {
-      console.log("set view");
-      console.log(bboxFeature);
-      map
-        .getView()
-        .fit(bboxFeature.getGeometry(), { padding: [50, 50, 50, 50] });
-    }, 2000);
+    map.getView().fit(this.poly, { padding: [50, 50, 50, 50] });
   },
   methods: {},
 });

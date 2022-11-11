@@ -113,7 +113,7 @@
           </p>
         </div>
         <div class="col-md-4" style="min-height: 40vh">
-          <MapBBox :poly="poly" />
+          <MapBBox v-if="poly" :poly="poly" />
         </div>
       </div>
       <!-- <div class="row">
@@ -205,7 +205,7 @@ export default Vue.extend({
     const data: {
       data: any;
       poly: any;
-    } = { data: {}, poly: {} };
+    } = { data: {}, poly: null };
 
     return data;
   },
