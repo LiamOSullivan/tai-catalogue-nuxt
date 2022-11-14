@@ -1,5 +1,65 @@
 <template>
-  <div class="row">
+  <div class="container-fluid">
+    <div class="res_title text-left m-3">
+      <h2>{{ res_title }}</h2>
+    </div>
+    <div id="bbox-map__container" class="bbox-map card text-left m-2">
+      <div class="card-body" style="min-height: 40vh">
+        <MapBBox v-if="poly" :poly="poly" />
+      </div>
+    </div>
+    <div class="card date_range text-left m-2">
+      <div class="card-body">
+        <h6 class="card-title">Date range</h6>
+        <p class="card-text small"></p>
+      </div>
+    </div>
+
+    <div
+      v-for="(value, key) in data"
+      :key="key"
+      class="card text-left m-2"
+      :class="key"
+    >
+      <div class="card-body">
+        <h6 class="card-title">{{ mapName(key) }}</h6>
+        <p class="card-text small">
+          {{ value !== null ? value : "Unknown" }}
+        </p>
+      </div>
+    </div>
+
+    <!-- <div class="res_title"></div>
+    <div class="res_abs"></div>
+    <div class="bbox-map"></div>
+    <div class="ref"></div>
+    <div class="topic_cat"></div>
+    <div class="sub_cat"></div>
+    <div class="keyword"></div>
+    <div class="res_type">
+      <div class="res_lang"></div>
+    </div>
+    <div class="spatial_res"></div>
+    <div class="name"></div>
+    <div class="date_range"></div>
+    <div class="lineage"></div>
+    <div class="meta_date"></div>
+    <div class="meta_lang"></div>
+    <div class="instrument"></div>
+    <div class="resp_org"></div>
+    <div class="poc"></div>
+    <div class="conditions"></div>
+    <div class="limitations"></div>
+    <div class="links">
+      <div class="res_loc"></div>
+      <div class="uri"></div>
+    </div>
+    <div class="viewers">
+      <div class="data_viewer"></div>
+      <div class="dashboard_view"></div>
+    </div> -->
+
+    <!-- <div class="row">
     <div class="col-lg-3 col-sm-12">
       <button
         type="button"
@@ -56,9 +116,7 @@
             </div>
           </div>
         </div>
-        <div id="bbox-map__container" class="col-md-4" style="min-height: 40vh">
-          <MapBBox v-if="poly" :poly="poly" />
-        </div>
+
       </div>
       <div class="row">
         <div class="col-md-12 card-grid">
@@ -76,7 +134,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script lang="ts">
@@ -97,20 +155,12 @@ export default Vue.extend({
   data: () => {
     const data: {
       data: any;
-      abstract: string;
-      res_title: string;
-      ref: string;
-      topic_cat: string;
-      sub_cat: string;
       poly: any;
+      res_title: string;
     } = {
       data: {},
       poly: null,
-      abstract: "",
-      res_title: "",
-      ref: "",
-      topic_cat: "",
-      sub_cat: "",
+      res_title: "Resource Title",
     };
 
     return data;
@@ -132,17 +182,16 @@ export default Vue.extend({
       const {
         geometry,
         res_title,
-        data_viewer,
-        res_abs,
         res_loc,
+        attr,
+        conformity,
+        status,
+        data_viewer,
         uri,
         dc_id,
         tai_id,
         date_from,
         date_to,
-        topic_cat,
-        sub_cat,
-        ref,
         ...displayProps
       } = features[0].getProperties();
       console.log(displayProps);
@@ -151,11 +200,7 @@ export default Vue.extend({
         features[0].getGeometry() !== undefined
           ? features[0].getGeometry()
           : null;
-      this.abstract = res_abs.trim();
-      this.res_title = res_title.trim();
-      this.ref = ref.trim();
-      this.topic_cat = topic_cat.trim();
-      this.sub_cat = sub_cat.trim();
+      this.res_title = res_title;
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
     }
@@ -176,15 +221,105 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
+.container-fluid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "res_title res_title res_title res_title res_title res_title"
+    "res_abs res_abs res_abs ref bbox-map bbox-map"
+    "topic_cat topic_cat sub_cat sub_cat bbox-map bbox-map"
+    "res_type res_type res_lang res_lang bbox-map bbox-map"
+    "keyword keyword date_range date_range name name"
+    "instrument lineage lineage lineage spatial_res spatial_res"
+    "resp_org resp_org poc poc meta_date meta_date"
+    "resp_org resp_org poc poc meta_lang meta_lang"
+    "conditions conditions conditions limitations limitations limitations"
+    ". . . . . .";
 }
 
-.card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
+.res_title {
+  grid-area: res_title;
 }
+
+.res_abs {
+  grid-area: res_abs;
+}
+
+.bbox-map {
+  grid-area: bbox-map;
+}
+
+.ref {
+  grid-area: ref;
+}
+
+.topic_cat {
+  grid-area: topic_cat;
+}
+
+.sub_cat {
+  grid-area: sub_cat;
+}
+
+.keyword {
+  grid-area: keyword;
+}
+
+.spatial_res {
+  grid-area: spatial_res;
+}
+
+.name {
+  grid-area: name;
+}
+
+.date_range {
+  grid-area: date_range;
+}
+
+.lineage {
+  grid-area: lineage;
+}
+
+.meta_date {
+  grid-area: meta_date;
+}
+
+.meta_lang {
+  grid-area: meta_lang;
+}
+
+.instrument {
+  grid-area: instrument;
+}
+
+.resp_org {
+  grid-area: resp_org;
+}
+
+.poc {
+  grid-area: poc;
+}
+
+.conditions {
+  grid-area: conditions;
+}
+
+.limitations {
+  grid-area: limitations;
+}
+
+.res_type {
+  grid-area: res_type;
+}
+
+.res_lang {
+  grid-area: res_lang;
+}
+
 #bbox-map__container {
   display: flex;
   flex-direction: column;
