@@ -31,7 +31,11 @@
       </div>
       <div class="row">
         <div class="col-md-12" id="card-grid">
-          <div v-for="(value, key) in data" class="card text-left m-2">
+          <div
+            v-for="(value, key) in data"
+            :key="key"
+            class="card text-left m-2"
+          >
             <div class="card-body">
               <h6 class="card-title">{{ mapName(key) }}:</h6>
               <p class="card-text small">
@@ -92,8 +96,11 @@ export default Vue.extend({
         uri,
         dc_id,
         tai_id,
+        date_from,
+        date_to,
         ...displayProps
       } = features[0].getProperties();
+      console.log(displayProps);
       this.data = displayProps;
       this.poly =
         features[0].getGeometry() !== undefined
@@ -109,7 +116,8 @@ export default Vue.extend({
   mounted() {},
   methods: {
     mapName(shortName: string) {
-      return nameMap[shortName] ? nameMap[shortName].long_name : shortName;
+      const obj: any = nameMap;
+      return obj[shortName] ? obj[shortName].long_name : shortName;
     },
     goToPrev() {
       this.$router.go(-1);
