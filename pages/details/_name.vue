@@ -14,23 +14,54 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="page-header">
+          <div class="page-header text-left m-2">
             <h2>{{ res_title }}</h2>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row card-grid">
         <div class="col-md-8">
-          <p>
-            {{ abstract }}
-          </p>
+          <div class="card text-left m-2">
+            <div class="card-body">
+              <h6 class="card-title">Resource abstract</h6>
+              <p class="card-text small">
+                {{ abstract }}
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4" style="min-height: 40vh">
+        <div class="col-md-8 card-grid">
+          <div class="col-md-4 card text-left m-2">
+            <div class="card-body">
+              <h6 class="card-title">Reference</h6>
+              <p class="card-text small">
+                {{ ref }}
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4 card text-left m-2">
+            <div class="card-body">
+              <h6 class="card-title">Topic category</h6>
+              <p class="card-text small">
+                {{ topic_cat }}
+              </p>
+            </div>
+          </div>
+          <div class="card col-md-4 text-left m-2">
+            <div class="card-body">
+              <h6 class="card-title">Sub-category</h6>
+              <p class="card-text small">
+                {{ sub_cat }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="bbox-map__container" class="col-md-4" style="min-height: 40vh">
           <MapBBox v-if="poly" :poly="poly" />
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12" id="card-grid">
+        <div class="col-md-12 card-grid">
           <div
             v-for="(value, key) in data"
             :key="key"
@@ -68,8 +99,19 @@ export default Vue.extend({
       data: any;
       abstract: string;
       res_title: string;
+      ref: string;
+      topic_cat: string;
+      sub_cat: string;
       poly: any;
-    } = { data: {}, poly: null, abstract: "", res_title: "" };
+    } = {
+      data: {},
+      poly: null,
+      abstract: "",
+      res_title: "",
+      ref: "",
+      topic_cat: "",
+      sub_cat: "",
+    };
 
     return data;
   },
@@ -98,6 +140,9 @@ export default Vue.extend({
         tai_id,
         date_from,
         date_to,
+        topic_cat,
+        sub_cat,
+        ref,
         ...displayProps
       } = features[0].getProperties();
       console.log(displayProps);
@@ -106,8 +151,11 @@ export default Vue.extend({
         features[0].getGeometry() !== undefined
           ? features[0].getGeometry()
           : null;
-      this.abstract = res_abs;
+      this.abstract = res_abs.trim();
       this.res_title = res_title.trim();
+      this.ref = ref.trim();
+      this.topic_cat = topic_cat.trim();
+      this.sub_cat = sub_cat.trim();
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
     }
@@ -128,9 +176,19 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-#card-grid {
+* {
+  box-sizing: border-box;
+}
+
+.card-grid {
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
+}
+#bbox-map__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
 
