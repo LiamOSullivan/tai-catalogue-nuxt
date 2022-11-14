@@ -44,3 +44,11 @@ export const searchAsEuroDate = function (value, searchString) {
 export const isoDateToDate = function (isoDate) {
   return new Date(isoDate);
 };
+
+/**
+ * @param
+ * @description captialises a string
+ * @returns string
+ */
+
+export const capitalise = (s) => (s && s[0].toUpperCase() + s.slice(1)) || "";

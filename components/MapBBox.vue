@@ -1,11 +1,10 @@
 <template>
-  <div class="row" style="width: 100%; min-height: inherit; height: inherit">
+  <div class="" style="width: 100%; height: 100%">
     <div
-      class="col-md-12 mb-1 mb-md-0"
-      style="width: 100%; min-height: inherit; height: inherit"
-    >
-      <div name="map-root" ref="map-root" style="width: 100%; height: 90%" />
-    </div>
+      name="map-root"
+      ref="map-root"
+      style="width: 100%; height: 100%; margin: inherit"
+    />
   </div>
 </template>
 

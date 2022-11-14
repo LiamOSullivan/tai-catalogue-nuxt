@@ -1,6 +1,7 @@
 {
   "ref": {
-    "long_name": "Reference"
+    "long_name": "Reference",
+    "icon": ""
   },
   "attr": {
     "long_name": "Attribution"

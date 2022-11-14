@@ -1,76 +1,49 @@
 <template>
   <div class="container-fluid">
-    <div class="res_title text-left m-3">
-      <h2>{{ res_title }}</h2>
-    </div>
-    <div id="bbox-map__container" class="bbox-map card text-left m-2">
-      <div class="card-body" style="min-height: 40vh">
-        <MapBBox v-if="poly" :poly="poly" />
-      </div>
-    </div>
-    <div class="card date_range text-left m-2">
-      <div class="card-body">
-        <h6 class="card-title">Date range</h6>
-        <p class="card-text small"></p>
-      </div>
-    </div>
-
-    <div
-      v-for="(value, key) in data"
-      :key="key"
-      class="card text-left m-2"
-      :class="key"
-    >
-      <div class="card-body">
-        <h6 class="card-title">{{ mapName(key) }}</h6>
-        <p class="card-text small">
-          {{ value !== null ? value : "Unknown" }}
-        </p>
+    <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <button
+          type="button"
+          class="btn btn-outline-primary m-1"
+          style="width: 100%"
+          @click.prevent="goToPrev()"
+        >
+          <font-awesome-icon icon="fa-solid fa-arrow-left" /> Back to results
+        </button>
       </div>
     </div>
 
-    <!-- <div class="res_title"></div>
-    <div class="res_abs"></div>
-    <div class="bbox-map"></div>
-    <div class="ref"></div>
-    <div class="topic_cat"></div>
-    <div class="sub_cat"></div>
-    <div class="keyword"></div>
-    <div class="res_type">
-      <div class="res_lang"></div>
-    </div>
-    <div class="spatial_res"></div>
-    <div class="name"></div>
-    <div class="date_range"></div>
-    <div class="lineage"></div>
-    <div class="meta_date"></div>
-    <div class="meta_lang"></div>
-    <div class="instrument"></div>
-    <div class="resp_org"></div>
-    <div class="poc"></div>
-    <div class="conditions"></div>
-    <div class="limitations"></div>
-    <div class="links">
-      <div class="res_loc"></div>
-      <div class="uri"></div>
-    </div>
-    <div class="viewers">
-      <div class="data_viewer"></div>
-      <div class="dashboard_view"></div>
-    </div> -->
+    <div id="grid" class="container">
+      <div class="res_title text-left m-3">
+        <h2>{{ res_title }}</h2>
+      </div>
+      <div id="bbox-map__container" class="bbox-map card m-1">
+        <div class="card-body" style="min-height: 30vh; height: 30vh">
+          <MapBBox v-if="poly" :poly="poly" />
+        </div>
+      </div>
+      <div class="card date_range text-left m-1">
+        <div class="card-body">
+          <h6 class="card-title">Date range</h6>
+          <p class="card-text small">{{ date_range }}</p>
+        </div>
+      </div>
 
-    <!-- <div class="row">
-    <div class="col-lg-3 col-sm-12">
-      <button
-        type="button"
-        class="btn btn-outline-primary m-1"
-        style="width: 100%"
-        @click.prevent="goToPrev()"
+      <div
+        v-for="(value, key) in data"
+        :key="key"
+        class="card text-left m-1"
+        :class="key"
       >
-        <font-awesome-icon icon="fa-solid fa-arrow-left" /> Back to results
-      </button>
-    </div>
+        <div class="card-body">
+          <h6 class="card-title">{{ mapName(key) }}</h6>
+          <p class="card-text small">
+            {{ value !== null ? capitalise(value) : "Not available" }}
+          </p>
+        </div>
+      </div>
 
+      <!--
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -135,6 +108,7 @@
         </div>
       </div>
     </div> -->
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -146,9 +120,15 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import GeoJSON from "ol/format/GeoJSON";
 import nameMap from "../../data/propsNameMap.json";
+import { capitalise } from "../../utilities";
 library.add(faArrowLeft);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
+
+function getDateRangeString(start: string, end: string): string {
+  const dateRangeString = `${start} to ${end}`;
+  return dateRangeString || "Not available";
+}
 
 export default Vue.extend({
   name: "DatasetDetails",
@@ -157,10 +137,12 @@ export default Vue.extend({
       data: any;
       poly: any;
       res_title: string;
+      date_range: string;
     } = {
       data: {},
       poly: null,
       res_title: "Resource Title",
+      date_range: "",
     };
 
     return data;
@@ -200,7 +182,11 @@ export default Vue.extend({
         features[0].getGeometry() !== undefined
           ? features[0].getGeometry()
           : null;
-      this.res_title = res_title;
+      this.res_title = capitalise(res_title);
+      console.log(date_from);
+      console.log(date_to);
+      this.date_range = getDateRangeString(date_from, date_to);
+      console.log(this.date_range);
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
     }
@@ -216,15 +202,18 @@ export default Vue.extend({
       this.$router.go(-1);
       // window.location.href = "/";
     },
+    capitalise(s: string) {
+      return (s && s[0].toUpperCase() + s.slice(1)) || "";
+    },
   },
 });
 </script>
 
 <style scoped>
-.container-fluid {
+#grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -324,6 +313,18 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  height: auto;
+  padding: 0;
+}
+.card {
+  height: auto;
+  min-height: none;
+}
+.card-body {
+  padding: 8px;
 }
 </style>
+
+
+
 
