@@ -323,6 +323,10 @@ export default Vue.extend({
 .card-body {
   padding: 8px;
 }
+.card-text {
+  max-height: 20vh;
+  overflow: auto;
+}
 </style>
 
 

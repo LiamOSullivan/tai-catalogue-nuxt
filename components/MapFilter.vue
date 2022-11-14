@@ -1,8 +1,8 @@
 <template>
   <div class="row" style="width: 100%; min-height: inherit; height: inherit">
     <div
-      class="col-md-8 mb-1 mb-md-0"
-      style="width: 100%; min-height: inherit; height: inherit"
+      class="col-md-7 mb-1 mb-md-0"
+      style="min-height: inherit; height: inherit"
     >
       <label>Filter Results by Area</label>
       <div ref="map-root" style="width: 100%; height: 90%" />
@@ -11,12 +11,25 @@
       <div id="map-filter__controls__area">
         <label> Current Area: </label><br />
         <p>
-          <small>{{
+          <small style="color: green">{{
             extent !== null ? extent : "Shift + drag on map to draw an area"
           }}</small>
         </p>
       </div>
       <div id="map-filter__controls__btns">
+        <div style="display: inline-block">
+          <label for="customSwitches"
+            ><small
+              >Within bounds only (exclude intersecting datasets)</small
+            ></label
+          >
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customSwitches"
+          />
+        </div>
+        <br />
         <button
           type="button"
           class="btn btn-sm btn-outline-secondary"
@@ -24,6 +37,7 @@
         >
           Apply
         </button>
+
         <button
           type="button"
           class="btn btn-sm btn-outline-secondary"
@@ -178,21 +192,25 @@ export default Vue.extend({
 </script>
 <style scoped>
 #map-filter__controls {
-  width: 100%;
   height: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 #map-filter__controls__area {
-  min-height: 50%;
+  min-height: 30%;
 }
 #map-filter__controls__btns {
   min-height: 50%;
-  width: 33%;
   gap: 8px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+.btn {
+  max-width: 120px;
+}
+.label {
+  width: auto;
 }
 </style>

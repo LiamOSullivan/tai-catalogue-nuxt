@@ -1,17 +1,7 @@
 <template>
   <div class="container" style="height: 100vh">
-    <!--
-    <div class="row mb-4">
-      <div class="col">
-        <button type="button" class="btn btn-primary" @click="updateData">Update data</button>
-      </div>
-    </div>
-    -->
     <div class="row mb-3 mt-3">
-      <div
-        class="col-md-12 mb-1 mb-md-0"
-        style="width: 100%; min-height: 400px"
-      >
+      <div class="col-md-8 mb-1 mb-md-0" style="width: 100%; min-height: 400px">
         <MapFilter @extent="filterOnExtent" />
       </div>
     </div>
@@ -100,22 +90,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row mb-1">
-      <div class="col-md-3">
-        <label> Filter by Site Name </label><br />
-        <input
-          type="text"
-          class="form-control form-control-sm"
-          placeholder="Name starts with..."
-          :value="startsWith"
-          @input="startWithInput($event)"
-        />
-      </div>
-    </div> -->
 
-    <!-- <hr class="mb-1" /> -->
-
-    <!-- <hr /> -->
     <dataset
       v-slot="{ ds }"
       :ds-data="records"
@@ -331,6 +306,7 @@ export default Vue.extend({
         });
 
         this.records.push(f);
+        cache.push(f); // init the cache
       });
       console.log(this.records[0]);
     } catch (error) {
@@ -384,9 +360,6 @@ export default Vue.extend({
       window.location.href = `/details/${rowName}?id=${id}`;
     },
     filterOnExtent(extent: any) {
-      console.log("got an extent to filter on " + extent);
-      console.log(this.records[0]);
-
       if (extent) {
         const recordsSource = new Vector({
           features: this.records,
