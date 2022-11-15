@@ -27,6 +27,7 @@
             type="checkbox"
             class="custom-control-input"
             id="customSwitches"
+            disabled
           />
         </div>
         <br />
