@@ -357,7 +357,8 @@ export default Vue.extend({
       const id = parseInt(row.getProperties()["dc_id"]);
 
       // this.$router.push({ name: `details-name`, params: { name: rowName } }); // this loses state when naved back to
-      window.location.href = `/details/${rowName}?id=${id}`;
+      window.history.pushState({}, "");
+      window.location.href = `/details/${id}`;
     },
     filterOnExtent(extent: any) {
       if (extent) {

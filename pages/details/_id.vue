@@ -85,7 +85,7 @@ export default Vue.extend({
   async created() {
     const baseURLJson =
       "https://tai-api.terrainai.com/api/v1/dc/dc-id-data/?format=json";
-    const id = this.$route.query.id;
+    const id = this.$route.params.id;
     // console.log("getting details for row " + id);
     try {
       const res = await axios.get(`${baseURLJson}&dc_id=${id}`);
@@ -117,10 +117,7 @@ export default Vue.extend({
           ? features[0].getGeometry()
           : null;
       this.res_title = capitalise(res_title);
-      console.log(date_from);
-      console.log(date_to);
       this.date_range = getDateRangeString(date_from, date_to);
-      console.log(this.date_range);
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
     }
@@ -134,9 +131,19 @@ export default Vue.extend({
     },
     goToPrev() {
       // this.$router.go(-1);
-      console.log("history:", window.history.length);
-      // window.location.href = "/";
-      window.history.back();
+      console.log("history ", window.history.length);
+
+      if (window.history.length > 1) {
+        console.log("back");
+        setTimeout(() => {
+          window.history.back();
+        }, 1000);
+      } else {
+        console.log("home");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      }
     },
     capitalise(s: string) {
       return (s && s[0].toUpperCase() + s.slice(1)) || "";
