@@ -42,72 +42,6 @@
           </p>
         </div>
       </div>
-
-      <!--
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="page-header text-left m-2">
-            <h2>{{ res_title }}</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row card-grid">
-        <div class="col-md-8">
-          <div class="card text-left m-2">
-            <div class="card-body">
-              <h6 class="card-title">Resource abstract</h6>
-              <p class="card-text small">
-                {{ abstract }}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-8 card-grid">
-          <div class="col-md-4 card text-left m-2">
-            <div class="card-body">
-              <h6 class="card-title">Reference</h6>
-              <p class="card-text small">
-                {{ ref }}
-              </p>
-            </div>
-          </div>
-          <div class="col-md-4 card text-left m-2">
-            <div class="card-body">
-              <h6 class="card-title">Topic category</h6>
-              <p class="card-text small">
-                {{ topic_cat }}
-              </p>
-            </div>
-          </div>
-          <div class="card col-md-4 text-left m-2">
-            <div class="card-body">
-              <h6 class="card-title">Sub-category</h6>
-              <p class="card-text small">
-                {{ sub_cat }}
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-12 card-grid">
-          <div
-            v-for="(value, key) in data"
-            :key="key"
-            class="card text-left m-2"
-          >
-            <div class="card-body">
-              <h6 class="card-title">{{ mapName(key) }}:</h6>
-              <p class="card-text small">
-                {{ value !== null ? value : "Unknown" }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
     </div>
   </div>
 </template>
@@ -199,8 +133,10 @@ export default Vue.extend({
       return obj[shortName] ? obj[shortName].long_name : shortName;
     },
     goToPrev() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      console.log("history:", window.history.length);
       // window.location.href = "/";
+      window.history.back();
     },
     capitalise(s: string) {
       return (s && s[0].toUpperCase() + s.slice(1)) || "";
