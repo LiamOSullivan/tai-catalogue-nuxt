@@ -8,12 +8,12 @@
           style="width: 100%"
           @click.prevent="goToPrev()"
         >
-          <font-awesome-icon icon="fa-solid fa-arrow-left" /> Back to results
+          <font-awesome-icon icon="fa-solid fa-arrow-left" /> Back
         </button>
       </div>
     </div>
 
-    <div id="grid" class="container">
+    <div id="grid" v-if="res_title" class="container">
       <div class="res_title text-left m-3">
         <h2>{{ res_title }}</h2>
       </div>
@@ -22,7 +22,7 @@
           <MapBBox v-if="poly" :poly="poly" />
         </div>
       </div>
-      <div class="card date_range text-left m-1">
+      <div v-if="date_range" class="card date_range text-left m-1">
         <div class="card-body">
           <h6 class="card-title">Date range</h6>
           <p class="card-text small">{{ date_range }}</p>
@@ -41,6 +41,12 @@
             {{ value !== null ? capitalise(value) : "Not available" }}
           </p>
         </div>
+      </div>
+    </div>
+    <div id="error-nodata" v-else class="container">
+      <div class="text-left m-3">
+        <h2>Error</h2>
+        <p>{{ error_msg }}</p>
       </div>
     </div>
   </div>
@@ -72,11 +78,13 @@ export default Vue.extend({
       poly: any;
       res_title: string;
       date_range: string;
+      error_msg: string;
     } = {
       data: {},
       poly: null,
-      res_title: "Resource Title",
-      date_range: "",
+      res_title: null,
+      date_range: null,
+      error_msg: null,
     };
 
     return data;
@@ -120,6 +128,7 @@ export default Vue.extend({
       this.date_range = getDateRangeString(date_from, date_to);
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
+      this.error_msg = `Error fetching data for id of ${this.$route.params.id} - are details correct?`;
     }
   },
 
@@ -131,18 +140,12 @@ export default Vue.extend({
     },
     goToPrev() {
       // this.$router.go(-1);
-      console.log("history ", window.history.length);
+      // console.log("history ", window.history.length);
 
       if (window.history.length > 1) {
-        console.log("back");
-        setTimeout(() => {
-          window.history.back();
-        }, 1000);
+        window.history.back();
       } else {
-        console.log("home");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1000);
+        window.location.href = "/";
       }
     },
     capitalise(s: string) {
