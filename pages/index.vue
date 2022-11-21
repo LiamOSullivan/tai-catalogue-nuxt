@@ -99,7 +99,13 @@
         name: startsWithFilter,
       }"
       :ds-sortby="[sortResourceTitle]"
-      :ds-search-in="['topic_cat', 'sub_cat', 'res_abs', 'keyword']"
+      :ds-search-in="[
+        'topic_cat',
+        'sub_cat',
+        'res_abs',
+        'keyword',
+        'res_title',
+      ]"
       :ds-search-as="{}"
     >
       <div class="row mb-1">
@@ -339,7 +345,9 @@ export default Vue.extend({
       // TODO: do empty table values return undefined?
       const hasUrl =
         row.getProperties()["data_viewer"] !== null &&
-        row.getProperties()["data_viewer"].toLowerCase() !== "none"
+        row.getProperties()["data_viewer"].toLowerCase() !== "none" &&
+        row.getProperties()["data_viewer"].toLowerCase() !== "tbd" &&
+        row.getProperties()["data_viewer"].toLowerCase() !== "tbc"
           ? row.getProperties()["data_viewer"].toString()
           : false;
       return hasUrl;
