@@ -13,7 +13,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === '']"
+            data-toggle="button"
+            :class="[refFilter === '' && 'active']"
             @click.prevent="refFilter = ''"
           >
             <span class="badge bg-secondary text-white">{{
@@ -24,8 +25,9 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'Spaceborne']"
+            :class="[refFilter === 'Spaceborne' && 'active']"
             @click.prevent="refFilter = 'Spaceborne'"
+            data-toggle="button"
           >
             <span class="badge bg-secondary text-white">{{
               filterListProperties(records, { ref: "Spaceborne" }).length
@@ -35,7 +37,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'Airborne']"
+            data-toggle="button"
+            :class="[refFilter === 'Airborne' && 'active']"
             @click.prevent="refFilter = 'Airborne'"
           >
             <span class="badge bg-secondary text-white">{{
@@ -46,7 +49,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'UAV']"
+            data-toggle="button"
+            :class="[refFilter === 'UAV' && 'active']"
             @click.prevent="refFilter = 'UAV'"
           >
             <span class="badge bg-secondary text-white">{{
@@ -57,7 +61,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'GIS']"
+            data-toggle="button"
+            :class="[refFilter === 'GIS' && 'active']"
             @click.prevent="refFilter = 'GIS'"
           >
             <span class="badge bg-secondary text-white">{{
@@ -68,7 +73,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'In-situ']"
+            data-toggle="button"
+            :class="[refFilter === 'In-situ' && 'active']"
             @click.prevent="refFilter = 'In-situ'"
           >
             <span class="badge bg-secondary text-white">{{
@@ -79,7 +85,8 @@
           <button
             type="button"
             class="btn btn-outline-secondary"
-            :class="[refFilter === 'Modelled']"
+            data-toggle="button"
+            :class="[refFilter === 'Modelled' && 'active']"
             @click.prevent="refFilter = 'Modelled'"
           >
             <span class="badge bg-secondary text-white">{{
