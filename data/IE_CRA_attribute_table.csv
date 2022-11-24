@@ -1,0 +1,19 @@
+﻿Name,Value type,Unit
+DOY,Day of Year ,#
+DateTime,Date/Time,DD/MM/YYYY HH:MM:SS
+CO2,Carbon Dioxide (CO2) in mole fraction of wet air,µmol CO2 mol-1
+NEE,Net Ecosystem Exchange,µmol CO2 m-2 s-1
+H2O,Water Vapour Flux,mmol+1s-1m-2
+LE,Latent heat Flux,W m-2
+H,Sensible Heat Flux,W m-2
+TA,Air Temperature,deg C
+RH,Relative Humidity,%
+NETRAD,Net Radiation,W m-2
+PPFD,Photosynthetic Photon Flux Density,µmol mol m-2 s-1
+VWC1,Volumetric Water Content 1,%
+VWC2,Volumetric Water Content 2,%
+G,Soil Heat Flux ,W m-2
+TS1,Soil temperature 1,deg C
+TS2,Soil temperature 2,deg C
+WS,Wind speed,m s-1
+WD,Wind direction respect to geographic north,deg

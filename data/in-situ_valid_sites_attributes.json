@@ -1,0 +1,187 @@
+{
+  "6": {
+    "name": "clara-west",
+    "title": "Clara West",
+    "details": "Flux Tower at Clara-West site. Terrain type: peatland.",
+    "dates": {
+      "start": "2021-10-27",
+      "end": "2021-10-28"
+    },
+    "attr": [
+      {
+        "title": "RecNbr",
+        "code": "RecNbr",
+        "y_axis_label": "RecNbr",
+        "active": true
+      },
+      {
+        "title": "QR_Avg",
+        "code": "QR_Avg",
+        "y_axis_label": "QR_Avg",
+        "active": true
+      },
+      {
+        "title": "PA_uS_2_Avg",
+        "code": "PA_uS_2_Avg",
+        "y_axis_label": "PA_uS_2_Avg",
+        "active": true
+      },
+      {
+        "title": "BP_mbar_Avg",
+        "code": "BP_mbar_Avgf",
+        "y_axis_label": "BP_mbar_Avg2",
+        "active": true
+      },
+      {
+        "title": "NR_Wm2_Avg",
+        "code": "NR_Wm2_Avg",
+        "y_axis_label": "NR_Wm2_Avg",
+        "active": true
+      },
+      {
+        
+        "title": "Volumetric Water Content 1",
+        "code": "VW_1_Avg",
+        "y_axis_label": "VW_1_Avg",
+        "active": true
+      },
+      {
+        "title": "WS_ms_S_WVT",
+        "code": "WS_ms_S_WVT",
+        "y_axis_label": "WS_ms_S_WVT",
+        "active": true
+      },
+      {
+        "title": "Volumetric Water Content 2",
+        "code": "VW_2_Avg",
+        "y_axis_label": "VW_2_Avg",
+        "active": true
+      },
+      {
+        "title": "Wind direction respect to geographic north",
+        "code": "WindDir_D1_WVT",
+        "y_axis_label": "WindDir_D1_WVT",
+        "active": true
+      },
+      {
+        "title": "HFP01sc_Avg",
+        "code": "HFP01sc_Avg",
+        "y_axis_label": "HFP01sc_Avg",
+        "active": true
+      },
+      {
+        "title": "Relative Humidity",
+        "code": "RH",
+        "y_axis_label": "RH",
+        "active": true
+      },
+      {
+        "title": "PA_uS_1_Avg",
+        "code": "PA_uS_1_Avg",
+        "y_axis_label": "PA_uS_1_Avg",
+        "active": true
+      },
+      {
+        "title": "TCAV_1_Avg",
+        "code": "TCAV_1_Avg",
+        "y_axis_label": "TCAV_1_Avg",
+        "active": true
+      },
+      {
+        "title": "Rain_mm_Tot",
+        "code": "Rain_mm_Tot",
+        "y_axis_label": "Rain_mm_Tot",
+        "active": true
+      },
+      {
+        "title": "CNR_Wm2_Avg",
+        "code": "CNR_Wm2_Avg",
+        "y_axis_label": "CNR_Wm2_Avg",
+        "active": true
+      },
+      {
+        "title": "BattV_Avg",
+        "code": "BattV_Avg",
+        "y_axis_label": "BattV_Avg",
+        "active": true
+      },
+      {
+        "title": "TCAV_2_Avg",
+        "code": "TCAV_2_Avg",
+        "y_axis_label": "TCAV_2_Avg",
+        "active": true
+      },
+      {
+        "title": "AirTC_Avg",
+        "code": "AirTC_Avg",
+        "y_axis_label": "AirTC_Avg",
+        "active": true
+      },
+      {
+        "title": "PTemp_C_Avg",
+        "code": "PTemp_C_Avg",
+        "y_axis_label": "PTemp_C_Avg",
+        "active": true
+      },
+      {
+        "title": "shf_cal",
+        "code": "shf_cal",
+        "y_axis_label": "shf_cal",
+        "active": true
+      }
+    ]
+  },
+  "14": {
+    "name": "castledockrell-grass",
+    "title": "Castledockrell Grass",
+    "details": "Flux Tower at Castledockrell site. Terrain type: grassland.",
+    "dates": {
+      "start": "2022-07-30",
+      "end": "2022-07-31"
+    },
+    "attr": [
+      {
+        "title": "CO2 Flux",
+        "code": "FCO2_cmdsgf_FFA_Un",
+        "y_axis_label": "FCO2%20(umol%2B1s-1m-2)",
+        "active": true
+      },
+      {
+        "title": "Gross Primary Productivity",
+        "code": "GPP_NT",
+        "y_axis_label": "umol%2B1s-1m-2",
+        "active": true
+      },
+      {
+        "title": "Sensible Heat Flux",
+        "code": "H_mdsgf",
+        "y_axis_label": "W%2Fm%5E2",
+        "active": true
+      },
+      {
+        "title": "Latent Heat Flux",
+        "code": "LE_cmdsgf",
+        "y_axis_label": "W%2Fm%5E2",
+        "active": true
+      },
+      {
+        "title": "NETRAD_1_1_1",
+        "code": "NETRAD_1_1_1",
+        "y_axis_label": "units",
+        "active": false
+      },
+      {
+        "title": "TS_average",
+        "code": "TS_average",
+        "y_axis_label": "units",
+        "active": false
+      },
+      {
+        "title": "TA_1_1_1",
+        "code": "TA_1_1_1f",
+        "y_axis_label": "units",
+        "active": false
+      }
+    ]
+  }
+}
