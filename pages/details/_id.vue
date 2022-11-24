@@ -1,21 +1,39 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-3 col-sm-12">
-        <button
-          type="button"
-          class="btn btn-outline-primary m-1"
-          style="width: 100%"
-          @click.prevent="goToPrev()"
-        >
-          <font-awesome-icon icon="fa-solid fa-arrow-left" /> Back
-        </button>
+    <header>
+      <div class="row no-gutters" id="top-bar">
+        <div class="col">
+          <h4 class="page-head">
+            <a href="/">Terrain-AI</a>
+            <span>
+              | Data Catalogue
+              <!-- {% if page_header %}
+            {{ page_header }}
+            {% else %} Data Platform{% endif %} -->
+            </span>
+          </h4>
+        </div>
+        <div class="col page-head__title">
+          <h4 id="page-title" class="page-head bold" style="text-align: right">
+            Dataset Details
+          </h4>
+        </div>
       </div>
-    </div>
+    </header>
 
     <div id="grid" v-if="res_title" class="container">
       <div class="res_title text-left m-3">
-        <h2>{{ res_title }}</h2>
+        <h3>{{ res_title }}</h3>
+      </div>
+      <div class="back">
+        <button
+          type="button"
+          class="btn m-1 btn-outline-secondary"
+          style="width: 100%"
+          @click.prevent="goToPrev()"
+        >
+          Back to search
+        </button>
       </div>
       <div id="bbox-map__container" class="bbox-map card m-1">
         <div class="card-body" style="min-height: 30vh; height: 30vh">
@@ -64,10 +82,50 @@
           </div>
         </div>
       </div>
+      <div class="card text-left m-1 viewer">
+        <div class="card-body">
+          <div style="width: 60%">
+            <h6 class="card-title">Data Viewer</h6>
+            <div v-if="getViewerUrl()">
+              <small>View example data for this dataset here</small>
+            </div>
+            <div v-else>
+              <small>This dataset does not have an associated viewer </small>
+            </div>
+          </div>
+          <div
+            style="
+              width: 30%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary m-1"
+              style="height: 60%"
+              :disabled="!getViewerUrl()"
+              @click="openLink(getViewerUrl())"
+            >
+              View Data
+              <font-awesome-icon icon="fa-solid fa-up-right-from-square" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="card text-left m-1 res_loc">
+        <div class="card-body">
+          <h6 class="card-title">Resource Locator</h6>
+          <div class="card-text small">
+            <small>{{ res_loc }}</small>
+          </div>
+        </div>
+      </div> -->
     </div>
     <div id="error-nodata" v-else class="container">
       <div class="text-left m-3">
-        <h2>Error</h2>
+        <h2>Loading data...</h2>
         <p>{{ error_msg }}</p>
       </div>
     </div>
@@ -76,18 +134,19 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import Papa from "papaparse";
+import GeoJSON from "ol/format/GeoJSON";
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import GeoJSON from "ol/format/GeoJSON";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { capitalise } from "../../utilities";
 import nameMap from "../../data/propsNameMap.json";
 import validSites from "~/data/in-situ_valid_sites_attributes.json";
 
-import Papa from "papaparse";
-
-import { capitalise } from "../../utilities";
 library.add(faArrowLeft);
+library.add(faUpRightFromSquare);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
@@ -107,6 +166,7 @@ export default Vue.extend({
       error_msg: string;
       attributes: string[];
       hasAttributes: boolean;
+      data_viewer: string;
     } = {
       data: {},
       poly: null,
@@ -115,6 +175,7 @@ export default Vue.extend({
       error_msg: null,
       attributes: [],
       hasAttributes: false,
+      data_viewer: null,
     };
 
     return data;
@@ -137,7 +198,6 @@ export default Vue.extend({
       const {
         geometry,
         res_title,
-        res_loc,
         attr,
         conformity,
         status,
@@ -149,7 +209,7 @@ export default Vue.extend({
         date_to,
         ...displayProps
       } = features[0].getProperties();
-      // console.log(displayProps);
+      console.log(displayProps);
       this.data = displayProps;
       this.poly =
         features[0].getGeometry() !== undefined
@@ -181,6 +241,8 @@ export default Vue.extend({
           },
         });
       }
+
+      this.data_viewer = data_viewer;
     } catch (error) {
       console.warn("Error fetching data from Catalogue API", error);
       this.error_msg = `Error fetching data for id of ${this.$route.params.id} - are details correct?`;
@@ -206,11 +268,89 @@ export default Vue.extend({
     capitalise(s: string) {
       return (s && s[0].toUpperCase() + s.slice(1)) || "";
     },
+    getViewerUrl() {
+      // TODO: do empty table values return undefined?
+      const hasUrl =
+        this.data_viewer !== null &&
+        this.data_viewer.toLowerCase() !== "none" &&
+        this.data_viewer.toLowerCase() !== "tbd" &&
+        this.data_viewer.toLowerCase() !== "tbc"
+          ? this.data_viewer.toString()
+          : false;
+      return hasUrl;
+    },
+    openLink(url: string) {
+      window.open(url);
+    },
   },
 });
 </script>
 
 <style scoped>
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  color: #014356;
+}
+
+p,
+ul,
+li,
+small {
+  font-weight: 300;
+  color: #014356;
+}
+
+a,
+span {
+  text-decoration: none;
+  font-weight: 300;
+  color: inherit;
+}
+
+b {
+  font-weight: 400;
+  color: #014356;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.container-fluid {
+  padding: 0;
+}
+
+.page-head {
+  color: white;
+}
+
+#top-bar {
+  background: #014356;
+  color: white;
+  padding: 14px 48px;
+  /* height: 60px; */
+  display: flex;
+  align-items: center;
+  min-width: 740px;
+}
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 #grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -218,20 +358,38 @@ export default Vue.extend({
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    "res_title res_title res_title res_title res_title res_title"
+    "res_title res_title res_title res_title res_title back"
     "res_abs res_abs res_abs ref bbox-map bbox-map"
     "topic_cat topic_cat sub_cat sub_cat bbox-map bbox-map"
     "res_type res_type res_lang res_lang bbox-map bbox-map"
     "keyword keyword date_range date_range name  spatial_res"
     "instrument lineage lineage attributes attributes attributes"
+    "viewer viewer viewer res_loc res_loc res_loc"
     "resp_org resp_org poc poc meta_date meta_date"
     "resp_org resp_org poc poc meta_lang meta_lang"
-    "conditions conditions conditions limitations limitations limitations"
-    ". . . . . .";
+    "conditions conditions conditions limitations limitations limitations";
 }
 
 .res_title {
   grid-area: res_title;
+}
+
+.back {
+  grid-area: back;
+  color: #014356;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.back button {
+  color: #014356;
+  outline-color: #014356;
+}
+
+.btn:hover {
+  color: white;
+  background-color: #014356;
+  border-color: #014356;
 }
 
 .res_abs {
@@ -310,8 +468,25 @@ export default Vue.extend({
   grid-area: res_lang;
 }
 
+.res_loc {
+  grid-area: res_loc;
+}
+
 .attributes {
   grid-area: attributes;
+}
+
+.viewer {
+  grid-area: viewer;
+}
+.viewer .card-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.viewer button {
+  color: #014356;
+  outline-color: #014356;
 }
 
 #bbox-map__container {
@@ -331,28 +506,6 @@ export default Vue.extend({
 .card-text {
   overflow: auto;
   max-height: 240px;
-}
-
-h2,
-h6 {
-  font-weight: 400;
-}
-
-p,
-ul,
-li,
-small {
-  font-weight: 200;
-}
-
-b {
-  font-weight: 300;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 </style>
 
