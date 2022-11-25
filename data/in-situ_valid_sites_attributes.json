@@ -193,7 +193,7 @@
       "start": "2022-07-30",
       "end": "2022-07-31"
     },
-    "attr_table": "IE_CRA_attribute_table.csv",
+    "attr_table": "IE_CD2_attribute_table_full.csv",
     "attr": [
       {
         "title": "CO2 Flux",
