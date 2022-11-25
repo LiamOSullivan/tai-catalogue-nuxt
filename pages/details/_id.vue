@@ -68,11 +68,17 @@
         <div class="card-body">
           <h6 class="card-title">Attributes</h6>
           <div v-if="hasAttributes" class="card-text small">
-            <b>Value type | Name | Unit</b>
+            <b>Value type | Attribute | Unit</b>
             <ul>
               <li v-for="(attr, key) in attributes" :key="key">
-                <small>
-                  {{ attr["Value type"] }} | {{ attr.Name }} | {{ attr.Unit }}
+                <small
+                  v-if="
+                    attr['Value type'] || attr['ICOS Value type'].length > 0
+                  "
+                >
+                  {{ attr["Value type"] || attr["ICOS Value type"] }}
+                  | {{ attr.Name || attr["ICOS attr"] }} |
+                  {{ attr.Unit || attr["ICOS unit"] }}
                 </small>
               </li>
             </ul>
@@ -98,7 +104,8 @@
               width: 30%;
               display: flex;
               justify-content: center;
-              align-items: center;
+              align-items: flex-start;
+              padding-top: 24px;
             "
           >
             <button
@@ -114,14 +121,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="card text-left m-1 res_loc">
-        <div class="card-body">
-          <h6 class="card-title">Resource Locator</h6>
-          <div class="card-text small">
-            <small>{{ res_loc }}</small>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div id="error-nodata" v-else class="container">
       <div class="text-left m-3">
@@ -210,6 +209,8 @@ export default Vue.extend({
         ...displayProps
       } = features[0].getProperties();
       console.log(displayProps);
+      console.log(tai_id);
+
       this.data = displayProps;
       this.poly =
         features[0].getGeometry() !== undefined
@@ -218,28 +219,30 @@ export default Vue.extend({
       this.res_title = capitalise(res_title);
       this.date_range = getDateRangeString(date_from, date_to);
 
-      this.hasAttributes = !!validSites[tai_id];
-      if (this.hasAttributes) {
-        const attrURL =
-          "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/IE_CRA_attribute_table.csv";
-        // let attributes: any = [];
-        const self = this;
-        Papa.parse(attrURL, {
-          download: true,
-          header: true,
-          skipEmptyLines: true,
-          complete: function (results: any) {
-            if (results && results.errors) {
-              if (results.errors.length > 0) {
-                console.log("Results errors: ", results.errors);
+      if (!!validSites[tai_id]) {
+        const baseAttrURL =
+          "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/";
+        if (validSites[tai_id].attr_table) {
+          this.hasAttributes = true;
+          const attrURL = baseAttrURL + validSites[tai_id].attr_table;
+          const self = this;
+          Papa.parse(attrURL, {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function (results: any) {
+              if (results && results.errors) {
+                if (results.errors.length > 0) {
+                  console.log("Results errors: ", results.errors);
+                }
+                if (results.data && results.data.length > 0) {
+                  console.log("Results:", results.data);
+                  self.attributes = results.data;
+                }
               }
-              if (results.data && results.data.length > 0) {
-                console.log("Results:", results.data);
-                self.attributes = results.data;
-              }
-            }
-          },
-        });
+            },
+          });
+        }
       }
 
       this.data_viewer = data_viewer;
@@ -384,6 +387,9 @@ ul {
 .back button {
   color: #014356;
   outline-color: #014356;
+}
+.btn {
+  max-height: 40px;
 }
 
 .btn:hover {
