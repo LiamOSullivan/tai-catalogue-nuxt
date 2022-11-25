@@ -88,6 +88,24 @@
           </div>
         </div>
       </div>
+      <div class="card text-left m-1 supplemental">
+        <div class="card-body">
+          <h6 class="card-title">Supplemental Datasets</h6>
+          <div v-if="hasSupplemental" class="card-text small">
+            <b>URI | Resource Locator</b>
+            <ul>
+              <li v-for="(s, key) in supplemental" :key="key">
+                <small> {{ s.uri + " | " + s.resource_locator }} </small>
+              </li>
+            </ul>
+          </div>
+          <div v-else class="card-text small">
+            <small>
+              There are no supplemental data listed for this dataset
+            </small>
+          </div>
+        </div>
+      </div>
       <div class="card text-left m-1 viewer">
         <div class="card-body">
           <div style="width: 60%">
@@ -160,20 +178,26 @@ export default Vue.extend({
     const data: {
       data: any;
       poly: any;
+      tai_id: number;
       res_title: string;
       date_range: string;
       error_msg: string;
       attributes: string[];
       hasAttributes: boolean;
+      supplemental: string[];
+      hasSupplemental: boolean;
       data_viewer: string;
     } = {
       data: {},
       poly: null,
+      tai_id: null,
       res_title: null,
       date_range: null,
       error_msg: null,
       attributes: [],
       hasAttributes: false,
+      supplemental: [],
+      hasSupplemental: false,
       data_viewer: null,
     };
 
@@ -208,8 +232,8 @@ export default Vue.extend({
         date_to,
         ...displayProps
       } = features[0].getProperties();
-      console.log(displayProps);
-      console.log(tai_id);
+      // console.log(displayProps);
+      // console.log(tai_id);
 
       this.data = displayProps;
       this.poly =
@@ -218,6 +242,7 @@ export default Vue.extend({
           : null;
       this.res_title = capitalise(res_title);
       this.date_range = getDateRangeString(date_from, date_to);
+      this.tai_id = tai_id;
 
       if (!!validSites[tai_id]) {
         const baseAttrURL =
@@ -236,13 +261,34 @@ export default Vue.extend({
                   console.log("Results errors: ", results.errors);
                 }
                 if (results.data && results.data.length > 0) {
-                  console.log("Results:", results.data);
+                  // console.log("Results:", results.data);
                   self.attributes = results.data;
                 }
               }
             },
           });
         }
+      }
+
+      if (tai_id == 14) {
+        this.hasSupplemental = true;
+        const self = this;
+        Papa.parse(
+          "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/IE_Cd2_UAV_uris.csv",
+          {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function (supp: any) {
+              if (supp && supp.errors && supp.errors.length) {
+                console.log("Supp errors: ", supp.errors);
+              } else if (supp.data && supp.data.length > 0) {
+                // console.log("supp.data: ", supp.data);
+                self.supplemental = supp.data;
+              }
+            },
+          }
+        );
       }
 
       this.data_viewer = data_viewer;
@@ -281,6 +327,13 @@ export default Vue.extend({
           ? this.data_viewer.toString()
           : false;
       return hasUrl;
+    },
+
+    getSupplemental() {
+      if (this.tai_id !== 14) {
+        return null;
+      }
+      return;
     },
     openLink(url: string) {
       window.open(url);
@@ -368,6 +421,7 @@ ul {
     "keyword keyword date_range date_range name  spatial_res"
     "instrument lineage lineage attributes attributes attributes"
     "viewer viewer viewer res_loc res_loc res_loc"
+    "supplemental supplemental supplemental supplemental supplemental supplemental"
     "resp_org resp_org poc poc meta_date meta_date"
     "resp_org resp_org poc poc meta_lang meta_lang"
     "conditions conditions conditions limitations limitations limitations";
@@ -389,7 +443,7 @@ ul {
   outline-color: #014356;
 }
 .btn {
-  max-height: 40px;
+  max-height: 56px;
 }
 
 .btn:hover {
@@ -493,6 +547,16 @@ ul {
 .viewer button {
   color: #014356;
   outline-color: #014356;
+  min-height: 48px;
+}
+
+.viewer button {
+  color: #014356;
+  outline-color: #014356;
+}
+
+.supplemental {
+  grid-area: supplemental;
 }
 
 #bbox-map__container {
