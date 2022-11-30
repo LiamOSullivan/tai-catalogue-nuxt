@@ -258,8 +258,8 @@ import {
   filterList,
   //   isoDateToEuroDate,
   //   searchAsEuroDate,
-} from "../utilities";
-import { debounce } from "../helpers";
+} from "../utilities/search";
+import { debounce } from "../utilities/vue-dataset_helpers";
 import Papa from "papaparse";
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";

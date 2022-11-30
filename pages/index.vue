@@ -268,7 +268,7 @@ import {
   filterListProperties,
   //   isoDateToEuroDate,
   //   searchAsEuroDate,
-} from "../utilities";
+} from "../utilities/search";
 
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
