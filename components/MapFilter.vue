@@ -1,13 +1,13 @@
 <template>
+<div>
   <div class="row" style="width: 100%; min-height: inherit; height: inherit">
-    <div
-      class="col-md-7 mb-1 mb-md-0"
-      style="min-height: inherit; height: inherit"
-    >
+    <div class="mb-1 mb-md-0" style="min-height: 200px; height: 300px">
       <label>Filter Results by Area</label>
       <div ref="map-root" style="width: 100%; height: 90%" />
     </div>
-    <div id="map-filter__controls" class="col-md-4 mb-1 mb-md-0">
+  </div>
+  <div class="row" style="width: 100%; min-height: inherit; height: inherit">
+    <div id="map-filter__controls" class="mb-1 mb-md-0">
       <div id="map-filter__controls__area">
         <label> Current Area: </label><br />
         <p>
@@ -48,6 +48,8 @@
         </button>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </template>
 
