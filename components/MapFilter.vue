@@ -1,55 +1,54 @@
 <template>
-<div>
-  <div class="row" style="width: 100%; min-height: inherit; height: inherit">
-    <div class="mb-1 mb-md-0" style="min-height: 200px; height: 300px">
-      <label>Filter Results by Area</label>
-      <div ref="map-root" style="width: 100%; height: 90%" />
-    </div>
-  </div>
-  <div class="row" style="width: 100%; min-height: inherit; height: inherit">
-    <div id="map-filter__controls" class="mb-1 mb-md-0">
-      <div id="map-filter__controls__area">
-        <label> Current Area: </label><br />
-        <p>
-          <small style="color: green">{{
-            extent !== null ? extent : "Shift + drag on map to draw an area"
-          }}</small>
-        </p>
+  <div>
+    <div class="row" style="width: 100%; min-height: inherit; height: inherit">
+      <div class="mb-1 mb-md-0" style="min-height: 200px; height: 300px">
+        <label>Filter Results by Area</label>
+        <div ref="map-root" style="width: 100%; height: 90%" />
       </div>
-      <div id="map-filter__controls__btns">
-        <div style="display: inline-block">
-          <label for="customSwitches"
-            ><small
-              >Within bounds only (exclude intersecting datasets)</small
-            ></label
+    </div>
+    <div class="row" style="width: 100%; min-height: inherit; height: inherit">
+      <div id="map-filter__controls" class="mb-1 mb-md-0">
+        <!-- <div id="map-filter__controls__area">
+          <label> Current Area: </label><br />
+          <p>
+            <small style="color: green">{{
+              extent !== null ? extent : "Shift + drag on map to draw an area"
+            }}</small>
+          </p>
+        </div> -->
+        <div id="map-filter__controls__btns">
+          <!-- <div style="display: inline-block">
+            <label for="customSwitches"
+              ><small
+                >Within bounds only (exclude intersecting datasets)</small
+              ></label
+            >
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="customSwitches"
+              disabled
+            />
+          </div>
+          <br /> -->
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            @click.prevent="emitExtent()"
           >
-          <input
-            type="checkbox"
-            class="custom-control-input"
-            id="customSwitches"
-            disabled
-          />
-        </div>
-        <br />
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          @click.prevent="emitExtent()"
-        >
-          Apply
-        </button>
+            Apply
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-sm btn-outline-secondary"
-          @click.prevent="clearExtent()"
-        >
-          Clear
-        </button>
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            @click.prevent="clearExtent()"
+          >
+            Clear
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
   </div>
 </template>
 

@@ -5,12 +5,12 @@
         <div class="col">
           <h4 class="page-head">
             <a href="/">Terrain-AI</a>
-            <span> | Video Catalogue </span>
+            <span> | Aerial Survey Catalogue </span>
           </h4>
         </div>
         <div class="col page-head__title">
           <h4 id="page-title" class="page-head bold" style="text-align: right">
-            Dataset Search
+            Search
           </h4>
         </div>
       </div>
@@ -21,6 +21,7 @@
       :ds-data="records"
       :ds-filter-fields="{
         ref: refFilter,
+        project: projectFilter,
         name: startsWithFilter,
       }"
       :ds-sortby="[sortResourceTitle]"
@@ -34,7 +35,7 @@
       :ds-search-as="{}"
     >
       <div class="row no-gutters">
-        <div class="col-4 m-0 p-0" id="search-col">
+        <div class="col-5 m-0 p-0" id="search-col">
           <div class="row m-0">
             <label for="ref-buttons">Survey Type</label>
             <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
@@ -77,6 +78,72 @@
             </div>
           </div>
           <div class="row m-0">
+            <label for="ref-buttons">Project</label>
+            <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[projectFilter === '' && 'active']"
+                @click.prevent="projectFilter = ''"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  records.length
+                }}</span>
+                All
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[projectFilter === 'airbus' && 'active']"
+                @click.prevent="projectFilter = 'airbus'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { project: "airbus" }).length
+                }}</span>
+                Airbus
+              </button>
+              <!-- <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[projectFilter === 'somosat' && 'active']"
+                @click.prevent="projectFilter = 'somosat'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { project: "somosat" }).length
+                }}</span>
+                SoMoSAT
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[projectFilter === 'suews' && 'active']"
+                @click.prevent="projectFilter = 'suews'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { project: "suews" }).length
+                }}</span>
+                SUEWS
+              </button> -->
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[projectFilter === 'tai' && 'active']"
+                @click.prevent="projectFilter = 'tai'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { project: "tai" }).length
+                }}</span>
+                Terrain-AI
+              </button>
+            </div>
+          </div>
+          <div class="row m-0">
             <label> Text Search</label><br />
             <dataset-search
               ds-search-placeholder="Search for a word or an exact phrase..."
@@ -87,7 +154,7 @@
             <MapFilter @extent="filterOnExtent" />
           </div>
         </div>
-        <div class="col-8 m-0 p-0" id="results-col">
+        <div class="col-7 m-0 p-0" id="results-col">
           <div class="row m-0 mb-3 mt-3">
             <div
               class="row justify-content-between mb-2"
@@ -114,7 +181,7 @@
               <div class="col-md-12">
                 <dataset-item
                   class="form-row mb-3"
-                  style="overflow-y: auto; max-height: 60vh"
+                  style="overflow-y: auto; max-height: 50vh"
                 >
                   <template #default="{ row, rowIndex }">
                     <div class="col-md-12">
@@ -155,7 +222,7 @@
                               <button
                                 type="button"
                                 class="btn btn-sm btn-outline-primary m-1"
-                                style="width: 33%"
+                                style=""
                                 @click.prevent="gotoDetails(row)"
                               >
                                 Details
@@ -164,7 +231,7 @@
                               <button
                                 type="button"
                                 class="btn btn-sm btn-outline-info m-1"
-                                style="width: 33%"
+                                style=""
                                 :disabled="!getViewerUrl(row)"
                                 @click="openLink(getViewerUrl(row))"
                               >
@@ -253,8 +320,15 @@ export default Vue.extend({
       records: any[];
       startsWith: string;
       refFilter: string;
+      projectFilter: string;
       resourceTitleAsc: boolean;
-    } = { records: [], startsWith: "", refFilter: "", resourceTitleAsc: true };
+    } = {
+      records: [],
+      startsWith: "",
+      refFilter: "",
+      projectFilter: "",
+      resourceTitleAsc: true,
+    };
 
     return data;
   },
@@ -266,15 +340,18 @@ export default Vue.extend({
   async created() {
     try {
       let baseURLJson =
-        "https://tai-api.terrainai.com/api/v1/dc/dc-data?format=json";
+        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2CSOMOSAT%2Cairbus&format=json";
 
       const res = await axios.get(`${baseURLJson}`);
 
-      const features = new GeoJSON().readFeatures(res.data[0], {
+      const featuresTAI = new GeoJSON().readFeatures(res.data[0], {
         dataProjection: "EPSG:4326",
         featureProjection: "EPSG:3857",
       });
-      features.forEach((f: any) => {
+      featuresTAI.forEach((f: any) => {
+        f.project = f.getProperties().project
+          ? f.getProperties().project.toLowerCase()
+          : "none";
         // need to pull the keys for sorting etc. out of nested properties, as dataset methods can't traverse down
         [
           "ref",
@@ -292,7 +369,7 @@ export default Vue.extend({
           cache.push(f); // init the cache
         }
       });
-      // console.log(this.records[0]);
+      console.log(this.records[0]);
     } catch (error) {
       console.log("error fetching data " + error);
     }
