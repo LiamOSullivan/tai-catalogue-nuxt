@@ -15,79 +15,80 @@
         </div>
       </div>
     </header>
-    <div class="row no-gutters">
-      <div class="col-3 m-1 p-0">
-        <div class="row m-1">
-          <label for="ref-buttons">Survey Type</label>
-          <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === '' && 'active']"
-              @click.prevent="refFilter = ''"
-            >
-              <span class="badge bg-secondary text-white">{{
-                records.length
-              }}</span>
-              All
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === 'Airborne' && 'active']"
-              @click.prevent="refFilter = 'Airborne'"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "Airborne" }).length
-              }}</span>
-              Airborne
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === 'UAV' && 'active']"
-              @click.prevent="refFilter = 'UAV'"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "UAV" }).length
-              }}</span>
-              UAV
-            </button>
+
+    <dataset
+      v-slot="{ ds }"
+      :ds-data="records"
+      :ds-filter-fields="{
+        ref: refFilter,
+        name: startsWithFilter,
+      }"
+      :ds-sortby="[sortResourceTitle]"
+      :ds-search-in="[
+        'topic_cat',
+        'sub_cat',
+        'res_abs',
+        'keyword',
+        'res_title',
+      ]"
+      :ds-search-as="{}"
+    >
+      <div class="row no-gutters">
+        <div class="col-4 m-0 p-0" id="search-col">
+          <div class="row m-0">
+            <label for="ref-buttons">Survey Type</label>
+            <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[refFilter === '' && 'active']"
+                @click.prevent="refFilter = ''"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  records.length
+                }}</span>
+                All
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[refFilter === 'Airborne' && 'active']"
+                @click.prevent="refFilter = 'Airborne'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { ref: "Airborne" }).length
+                }}</span>
+                Airborne
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-toggle="button"
+                :class="[refFilter === 'UAV' && 'active']"
+                @click.prevent="refFilter = 'UAV'"
+              >
+                <span class="badge bg-secondary text-white">{{
+                  filterListProperties(records, { ref: "UAV" }).length
+                }}</span>
+                UAV
+              </button>
+            </div>
+          </div>
+          <div class="row m-0">
+            <label> Text Search</label><br />
+            <dataset-search
+              ds-search-placeholder="Search for a word or an exact phrase..."
+              class="form-control-sm"
+            />
+          </div>
+          <div class="row m-0">
+            <MapFilter @extent="filterOnExtent" />
           </div>
         </div>
-        <div class="row m-1">
-          <label> Text Search</label><br />
-          <dataset-search
-            ds-search-placeholder="Search for a word or an exact phrase..."
-            class="form-control-sm"
-          />
-        </div>
-        <div class="row m-1">
-          <MapFilter @extent="filterOnExtent" />
-        </div>
-      </div>
-      <div class="col-8 m-1 p-0">
-        <div class="row m-0 mb-3 mt-3">
-          <dataset
-            v-slot="{ ds }"
-            :ds-data="records"
-            :ds-filter-fields="{
-              ref: refFilter,
-              name: startsWithFilter,
-            }"
-            :ds-sortby="[sortResourceTitle]"
-            :ds-search-in="[
-              'topic_cat',
-              'sub_cat',
-              'res_abs',
-              'keyword',
-              'res_title',
-            ]"
-            :ds-search-as="{}"
-          >
+        <div class="col-8 m-0 p-0" id="results-col">
+          <div class="row m-0 mb-3 mt-3">
             <div
               class="row justify-content-between mb-2"
               :data-page-count="ds.dsPagecount"
@@ -197,10 +198,10 @@
               <dataset-info class="mb-2 mb-md-0" />
               <dataset-pager class="pagination-sm" />
             </div>
-          </dataset>
+          </div>
         </div>
       </div>
-    </div>
+    </dataset>
   </div>
 </template>
 
@@ -426,6 +427,15 @@ ul {
   align-items: center;
   min-width: 740px;
 }
+
+#search-col {
+  display: flex;
+  flex-direction: column;
+}
+#results-col {
+  display: flex;
+}
+
 .row {
   display: -ms-flexbox;
   display: flex;
