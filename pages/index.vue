@@ -9,9 +9,9 @@
           </h4>
         </div>
         <div class="col page-head__title">
-          <h4 id="page-title" class="page-head bold" style="text-align: right">
-            Search
-          </h4>
+          <h6 id="page-title" class="page-head bold" style="text-align: right">
+            Log In
+          </h6>
         </div>
       </div>
     </header>
@@ -36,8 +36,10 @@
     >
       <div class="row no-gutters">
         <div class="col-5 m-0 p-0" id="search-col">
-          <div class="row m-0">
-            <label for="ref-buttons">Survey Type</label>
+          <div class="row m-2">
+            <label style="padding-bottom: 24px" for="ref-buttons"
+              >Survey Type</label
+            >
             <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
               <button
                 type="button"
@@ -77,8 +79,10 @@
               </button>
             </div>
           </div>
-          <div class="row m-0">
-            <label for="ref-buttons">Project</label>
+          <div class="row m-2">
+            <label for="ref-buttons" style="padding-bottom: 24px"
+              >Project</label
+            >
             <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
               <button
                 type="button"
@@ -143,11 +147,12 @@
               </button>
             </div>
           </div>
-          <div class="row m-0">
+          <div class="row m-2">
             <label> Text Search</label><br />
             <dataset-search
               ds-search-placeholder="Search for a word or an exact phrase..."
               class="form-control-sm"
+              style="max-width: 550px"
             />
           </div>
           <div class="row m-0">
@@ -155,12 +160,12 @@
           </div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">
-          <div class="row m-0 mb-3 mt-3">
+          <div class="row m-0 mt-3">
             <div
               class="row justify-content-between mb-2"
               :data-page-count="ds.dsPagecount"
             >
-              <div class="col-md-3 mb-2 mb-md-0">
+              <div class="col-md-3 mb-0 mb-md-0">
                 <label> Sort by </label><br />
                 <button
                   type="button"
@@ -181,7 +186,7 @@
               <div class="col-md-12">
                 <dataset-item
                   class="form-row mb-3"
-                  style="overflow-y: auto; max-height: 50vh"
+                  style="overflow-y: auto; max-height: 75vh"
                 >
                   <template #default="{ row, rowIndex }">
                     <div class="col-md-12">
@@ -376,18 +381,18 @@ export default Vue.extend({
   },
   mounted() {
     // override some vue-dataset defaults
-    // let showFormSelect: any = document.querySelector(
-    //   "#__layout > div > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > select"
-    // );
-    // showFormSelect.classList.add("form-control-sm");
-    // let showFormLabelPre: any = document.querySelector(
-    //   "#__layout > div > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
-    // );
-    // showFormLabelPre.style.display = "none";
-    // let showFormLabelPost: any = document.querySelector(
-    //   "#__layout > div > div > div:nth-child(3) > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
-    // );
-    // showFormLabelPost.style.display = "none";
+    let showFormSelect: any = document.querySelector(
+      "#results-col > div > div.row.justify-content-between.mb-2 > div.col-md-3.mb-2.mb-md-0 > div > select"
+    );
+    showFormSelect.classList.add("form-control-sm");
+    let showFormLabelPre: any = document.querySelector(
+      "#results-col > div > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(1)"
+    );
+    showFormLabelPre.style.display = "none";
+    let showFormLabelPost: any = document.querySelector(
+      "#results-col > div > div.row.justify-content-between.mb-2 > div:nth-child(2) > div > label:nth-child(3)"
+    );
+    showFormLabelPost.style.display = "none";
   },
 
   methods: {
@@ -457,7 +462,9 @@ label {
   color: #014356;
 }
 label {
-  padding-bottom: 12px;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 8px;
 }
 
 p,
@@ -498,7 +505,7 @@ ul {
 #top-bar {
   background: #014356;
   color: white;
-  padding: 14px 48px;
+  padding: 14px 0.5rem;
   /* height: 60px; */
   display: flex;
   align-items: center;
@@ -511,6 +518,7 @@ ul {
 }
 #results-col {
   display: flex;
+  min-height: 92vh;
 }
 
 .row {
