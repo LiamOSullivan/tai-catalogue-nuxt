@@ -5,7 +5,7 @@
         <div class="col">
           <h4 class="page-head">
             <a href="/">Terrain-AI</a>
-            <span> | Data Catalogue </span>
+            <span> | Video Catalogue </span>
           </h4>
         </div>
         <div class="col page-head__title">
@@ -18,7 +18,7 @@
     <div class="row no-gutters">
       <div class="col-3 m-1 p-0">
         <div class="row m-1">
-          <label for="ref-buttons">Choose Reference Type</label>
+          <label for="ref-buttons">Survey Type</label>
           <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
             <button
               type="button"
@@ -31,18 +31,6 @@
                 records.length
               }}</span>
               All
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              :class="[refFilter === 'Spaceborne' && 'active']"
-              @click.prevent="refFilter = 'Spaceborne'"
-              data-toggle="button"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "Spaceborne" }).length
-              }}</span>
-              Spaceborne
             </button>
             <button
               type="button"
@@ -68,48 +56,12 @@
               }}</span>
               UAV
             </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === 'GIS' && 'active']"
-              @click.prevent="refFilter = 'GIS'"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "GIS" }).length
-              }}</span>
-              GIS
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === 'In-situ' && 'active']"
-              @click.prevent="refFilter = 'In-situ'"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "In-situ" }).length
-              }}</span>
-              In-situ
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-toggle="button"
-              :class="[refFilter === 'Modelled' && 'active']"
-              @click.prevent="refFilter = 'Modelled'"
-            >
-              <span class="badge bg-secondary text-white">{{
-                filterListProperties(records, { ref: "Modelled" }).length
-              }}</span>
-              Modelled
-            </button>
           </div>
         </div>
         <div class="row m-1">
           <label> Text Search</label><br />
           <dataset-search
-            ds-search-placeholder="Search for a word or exact phrase..."
+            ds-search-placeholder="Search for a word or an exact phrase..."
             class="form-control-sm"
           />
         </div>
@@ -334,11 +286,12 @@ export default Vue.extend({
         ].forEach((key) => {
           f[key] = f.getProperties()[key];
         });
-
-        this.records.push(f);
-        cache.push(f); // init the cache
+        if (f["ref"] === "Airborne" || f["ref"] === "UAV") {
+          this.records.push(f);
+          cache.push(f); // init the cache
+        }
       });
-      console.log(this.records[0]);
+      // console.log(this.records[0]);
     } catch (error) {
       console.log("error fetching data " + error);
     }
