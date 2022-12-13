@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row" style="width: 100%; min-height: inherit; height: inherit">
-      <div class="mb-1 mb-md-0" style="min-height: 200px; height: 300px">
+      <div class="mb-1 mb-md-0" style="min-height: 200px; height: 50vh">
         <label>Filter Results by Area</label>
         <div ref="map-root" style="width: 100%; height: 90%" />
       </div>
@@ -206,13 +206,16 @@ export default Vue.extend({
   min-height: 50%;
   gap: 8px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 .btn {
   max-width: 120px;
 }
-.label {
-  width: auto;
+
+label {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 8px;
 }
 </style>

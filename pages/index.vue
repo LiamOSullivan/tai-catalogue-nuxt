@@ -37,78 +37,36 @@
       <div class="row no-gutters">
         <div class="col-5 m-0 p-0" id="search-col">
           <div class="row m-2">
-            <label style="padding-bottom: 24px" for="ref-buttons"
-              >Survey Type</label
-            >
-            <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[refFilter === '' && 'active']"
-                @click.prevent="refFilter = ''"
+            <div class="col-6 m-0">
+              <label for="ref-buttons" style="padding-bottom: 24px"
+                >Project</label
               >
-                <span class="badge bg-secondary text-white">{{
-                  records.length
-                }}</span>
-                All
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[refFilter === 'Airborne' && 'active']"
-                @click.prevent="refFilter = 'Airborne'"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { ref: "Airborne" }).length
-                }}</span>
-                Airborne
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[refFilter === 'UAV' && 'active']"
-                @click.prevent="refFilter = 'UAV'"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { ref: "UAV" }).length
-                }}</span>
-                UAV
-              </button>
-            </div>
-          </div>
-          <div class="row m-2">
-            <label for="ref-buttons" style="padding-bottom: 24px"
-              >Project</label
-            >
-            <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[projectFilter === '' && 'active']"
-                @click.prevent="projectFilter = ''"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  records.length
-                }}</span>
-                All
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[projectFilter === 'airbus' && 'active']"
-                @click.prevent="projectFilter = 'airbus'"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { project: "airbus" }).length
-                }}</span>
-                Airbus
-              </button>
-              <!-- <button
+              <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[projectFilter === '' && 'active']"
+                  @click.prevent="projectFilter = ''"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    records.length
+                  }}</span>
+                  All
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[projectFilter === 'airbus' && 'active']"
+                  @click.prevent="projectFilter = 'airbus'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { project: "airbus" }).length
+                  }}</span>
+                  Airbus
+                </button>
+                <!-- <button
                 type="button"
                 class="btn btn-outline-secondary"
                 data-toggle="button"
@@ -133,29 +91,77 @@
                 SUEWS
               </button> -->
 
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[projectFilter === 'tai' && 'active']"
-                @click.prevent="projectFilter = 'tai'"
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[projectFilter === 'tai' && 'active']"
+                  @click.prevent="projectFilter = 'tai'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { project: "tai" }).length
+                  }}</span>
+                  Terrain-AI
+                </button>
+              </div>
+            </div>
+            <div class="col-6 m-0">
+              <label style="padding-bottom: 24px" for="ref-buttons"
+                >Survey Type</label
               >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { project: "tai" }).length
-                }}</span>
-                Terrain-AI
-              </button>
+              <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[refFilter === '' && 'active']"
+                  @click.prevent="refFilter = ''"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    records.length
+                  }}</span>
+                  All
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[refFilter === 'Airborne' && 'active']"
+                  @click.prevent="refFilter = 'Airborne'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "Airborne" }).length
+                  }}</span>
+                  Airborne
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-toggle="button"
+                  :class="[refFilter === 'UAV' && 'active']"
+                  @click.prevent="refFilter = 'UAV'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "UAV" }).length
+                  }}</span>
+                  UAV
+                </button>
+              </div>
             </div>
           </div>
+
           <div class="row m-2">
-            <label> Text Search</label><br />
-            <dataset-search
-              ds-search-placeholder="Search for a word or an exact phrase..."
-              class="form-control-sm"
-              style="max-width: 550px"
-            />
+            <div class="col-6 m-0">
+              <label> Text Search</label>
+              <dataset-search
+                ds-search-placeholder="Search for a word or an exact phrase"
+                class="form-control-sm"
+                style="background-color: transparent"
+              />
+            </div>
+            <div class="col-6 m-0"></div>
           </div>
-          <div class="row m-0">
+          <div class="row m-2">
             <MapFilter @extent="filterOnExtent" />
           </div>
         </div>
@@ -515,6 +521,7 @@ ul {
 #search-col {
   display: flex;
   flex-direction: column;
+  background-color: #01445612;
 }
 #results-col {
   display: flex;
