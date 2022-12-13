@@ -33,7 +33,7 @@
           <br /> -->
           <button
             type="button"
-            class="btn btn-sm btn-outline-secondary"
+            class="btn btn-sm btn-outline-primary"
             @click.prevent="emitExtent()"
           >
             Apply
@@ -41,7 +41,7 @@
 
           <button
             type="button"
-            class="btn btn-sm btn-outline-secondary"
+            class="btn btn-sm btn-outline-primary"
             @click.prevent="clearExtent()"
           >
             Clear
@@ -95,7 +95,7 @@ export default Vue.extend({
 
       view: new View({
         center: [-900000, 7046600], // default: Ireland
-        zoom: 8, // default countrywide,
+        zoom: 6, // default countrywide,
         constrainResolution: true,
       }),
     });
@@ -211,6 +211,16 @@ export default Vue.extend({
 }
 .btn {
   max-width: 120px;
+}
+
+.btn-outline-primary {
+  border: 1px solid #014356;
+  color: #014356;
+}
+.btn-outline-primary:hover {
+  border: 1px solid #014356;
+  background-color: #014356;
+  color: white;
 }
 
 label {

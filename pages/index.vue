@@ -44,7 +44,7 @@
               <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[projectFilter === '' && 'active']"
                   @click.prevent="projectFilter = ''"
@@ -56,7 +56,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[projectFilter === 'airbus' && 'active']"
                   @click.prevent="projectFilter = 'airbus'"
@@ -93,7 +93,7 @@
 
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[projectFilter === 'tai' && 'active']"
                   @click.prevent="projectFilter = 'tai'"
@@ -112,7 +112,7 @@
               <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[refFilter === '' && 'active']"
                   @click.prevent="refFilter = ''"
@@ -124,7 +124,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[refFilter === 'Airborne' && 'active']"
                   @click.prevent="refFilter = 'Airborne'"
@@ -136,7 +136,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-secondary"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[refFilter === 'UAV' && 'active']"
                   @click.prevent="refFilter = 'UAV'"
@@ -156,7 +156,6 @@
               <dataset-search
                 ds-search-placeholder="Search for a word or an exact phrase"
                 class="form-control-sm"
-                style="background-color: transparent"
               />
             </div>
             <div class="col-6 m-0"></div>
@@ -241,7 +240,7 @@
 
                               <button
                                 type="button"
-                                class="btn btn-sm btn-outline-info m-1"
+                                class="btn btn-sm btn-outline-primary m-1"
                                 style=""
                                 :disabled="!getViewerUrl(row)"
                                 @click="openLink(getViewerUrl(row))"
@@ -467,6 +466,16 @@ label {
   font-weight: 400;
   color: #014356;
 }
+h5 {
+  font-size: 95%;
+}
+
+h6,
+p,
+small {
+  font-size: 80%;
+}
+
 label {
   margin: 0;
   padding: 0;
@@ -521,8 +530,15 @@ ul {
 #search-col {
   display: flex;
   flex-direction: column;
-  background-color: #01445612;
+  background-color: #01445629;
 }
+.form-control-sm {
+  background-color: transparent;
+  font-size: 70%;
+  color: #014356;
+  border: 1px solid #014356;
+}
+
 #results-col {
   display: flex;
   min-height: 92vh;
@@ -566,6 +582,20 @@ ul {
   right: -4px;
   z-index: 10;
   background-color: #014356;
+}
+
+.btn-sm {
+  font-size: 75%;
+}
+.btn-outline-primary {
+  border: 1px solid #014356;
+  color: #014356;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary.active {
+  border: 1px solid #014356;
+  background-color: #014356;
+  color: white;
 }
 
 .bg-secondary {
