@@ -72,25 +72,29 @@ import "ol/ol.css";
 // import { loadMetStations } from "~/utils/loadMetStations";
 
 let extentInteraction;
-let map;
-export default Vue.extend({
+export default {
   name: "MapContainer",
-  data: () => {
-    return { extent: null };
-  },
+  props: { featureObj: Object },
+  data: () => ({
+    map: null,
+    featureLayer: null,
+    // extent: null,
+  }),
   async mounted() {
-    const drawSource = new VectorSource({ wrapX: false });
-
-    const drawVector = new VectorLayer({
-      source: drawSource,
+    const featureSource = new VectorSource({
+      wrapX: false,
+      features: [],
+    });
+    this.featureLayer = new VectorLayer({
+      source: featureSource,
     });
 
-    map = new Map({
+    const map = new Map({
       layers: [
         new TileLayer({
           source: new OSM(),
         }),
-        drawVector,
+        this.featureLayer,
       ],
 
       view: new View({
@@ -105,14 +109,120 @@ export default Vue.extend({
       condition: shiftKeyOnly,
       boxStyle: new Style({
         stroke: new Stroke({
-          color: "rgba(1, 67, 86, 0.7)",
+          color: "rgba(1, 67, 86, 0.7 )",
           width: 2,
         }),
       }),
     });
     map.addInteraction(extentInteraction);
 
-    // extentInteraction.on("extentend", (listener) => {
+    console.log(this.featureObj);
+    // // call`updateSource` to initialise
+    // if(this.featureObj !== null)
+    // this.updateSource(this.featureObj);
+    const self = this;
+    map.on("pointermove", function (evt) {
+      // if (evt.dragging && this.extent) {
+      //   self.extent = extentInteraction.getExtent().map((e) => {
+      //     return parseFloat(e.toFixed(2));
+      //   });
+      //   // console.log(self.extent);
+      // }
+      // const pixel = map.getEventPixel(evt.originalEvent);
+      // displayFeatureInfo(pixel);
+    });
+
+    map.on("click", function (evt) {
+      // displayFeatureInfo(evt.pixel);
+      // const pixel = map.getEventPixel(evt.originalEvent);
+      // map.getFeaturesAtPixel(pixel).forEach((f) => {
+      //   if (f.getProperties().dataset_type === "soil_moisture") {
+      //     window.location.href = "../charts/soils/" + f.getProperties().tai_id;
+      //   } else {
+      //     window.location.href = "../charts/met/" + f.getProperties().tai_id;
+      //   }
+      // });
+    });
+  },
+  watch: {
+    featureObj: {
+      handler: function (f) {
+        console.log("handler");
+        console.log(f.ol_uid);
+        this.updateSource(f);
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    // this will parse the input data and add it to the map
+    updateSource(featureObj) {
+      console.log("update source");
+      // const view = this.map.getView();
+      const source = this.featureLayer.getSource();
+      source.clear();
+      source.addFeature(featureObj);
+
+      // this zooms the view on the created object
+      // view.fit(source.getExtent());
+    },
+    emitExtent() {
+      //   console.log("emit extent: ", this.extent);
+      //   this.$emit("extent", this.extent);
+    },
+    clearExtent() {
+      // if (this.map !== null) {
+      //   console.log(this.map);
+      //   this.map.removeInteraction(extentInteraction);
+      //   this.extent = null;
+      //   extentInteraction = new ExtentInteraction({
+      //     condition: shiftKeyOnly,
+      //   });
+      //   this.map.addInteraction(extentInteraction);
+      //   this.$emit("extent", this.extent);
+      // }
+    },
+  },
+};
+</script>
+<style scoped>
+#map-filter__controls {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#map-filter__controls__area {
+  min-height: 30%;
+}
+#map-filter__controls__btns {
+  min-height: 50%;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.btn {
+  max-width: 120px;
+}
+
+.btn-outline-primary {
+  border: 1px solid #014356;
+  color: #014356;
+}
+.btn-outline-primary:hover {
+  border: 1px solid #014356;
+  background-color: #014356;
+  color: white;
+}
+
+label {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 8px;
+}
+</style>
+// extentInteraction.on("extentend", (listener) => {
     //   console.log("extentchanged");
     // });
 
@@ -156,82 +266,3 @@ export default Vue.extend({
     // });
 
     // const hoverOverlay = await getHoverOverlayFeature(map);
-    let highlight;
-    const self = this;
-    map.on("pointermove", function (evt) {
-      if (evt.dragging) {
-        self.extent = extentInteraction.getExtent().map((e) => {
-          return parseFloat(e.toFixed(2));
-        });
-        // console.log(self.extent);
-      }
-      // const pixel = map.getEventPixel(evt.originalEvent);
-      // displayFeatureInfo(pixel);
-    });
-
-    map.on("click", function (evt) {
-      // displayFeatureInfo(evt.pixel);
-      // const pixel = map.getEventPixel(evt.originalEvent);
-      // map.getFeaturesAtPixel(pixel).forEach((f) => {
-      //   if (f.getProperties().dataset_type === "soil_moisture") {
-      //     window.location.href = "../charts/soils/" + f.getProperties().tai_id;
-      //   } else {
-      //     window.location.href = "../charts/met/" + f.getProperties().tai_id;
-      //   }
-      // });
-    });
-  },
-  methods: {
-    emitExtent() {
-      console.log("emit extent: ", this.extent);
-      this.$emit("extent", this.extent);
-    },
-    clearExtent() {
-      map.removeInteraction(extentInteraction);
-      this.extent = null;
-      extentInteraction = new ExtentInteraction({
-        condition: shiftKeyOnly,
-      });
-      map.addInteraction(extentInteraction);
-      this.$emit("extent", this.extent);
-    },
-  },
-});
-</script>
-<style scoped>
-#map-filter__controls {
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-#map-filter__controls__area {
-  min-height: 30%;
-}
-#map-filter__controls__btns {
-  min-height: 50%;
-  gap: 8px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-.btn {
-  max-width: 120px;
-}
-
-.btn-outline-primary {
-  border: 1px solid #014356;
-  color: #014356;
-}
-.btn-outline-primary:hover {
-  border: 1px solid #014356;
-  background-color: #014356;
-  color: white;
-}
-
-label {
-  margin: 0;
-  padding: 0;
-  padding-bottom: 8px;
-}
-</style>

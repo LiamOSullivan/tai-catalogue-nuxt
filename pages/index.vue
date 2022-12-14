@@ -33,7 +33,14 @@
         'res_title',
       ]"
       :ds-search-as="{}"
-    >
+      ><div class="row no-gutters">
+        <dataset-custom
+          class="form-row mb-3"
+          style="overflow-y: auto; max-height: 5vh"
+        >
+          Test
+        </dataset-custom>
+      </div>
       <div class="row no-gutters">
         <div class="col-5 m-0 p-0" id="search-col">
           <div class="row m-2">
@@ -161,7 +168,10 @@
             <div class="col-6 m-0"></div>
           </div>
           <div class="row m-2">
-            <MapFilter @extent="filterOnExtent" />
+            <MapFilter
+              @extent="filterOnExtent"
+              v-bind:featureObj="featureObj"
+            />
           </div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">
@@ -297,6 +307,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import MapFilter from "~/components/MapFilter.vue";
+import DatasetCustom from "~/components/DatasetCustom.vue";
 import GeoJSON from "ol/format/GeoJSON";
 import Vector from "ol/source/Vector";
 
@@ -324,16 +335,19 @@ export default Vue.extend({
     DatasetSearch,
     DatasetShow,
     MapFilter,
+    DatasetCustom,
   },
   data: () => {
     const data: {
       records: any[];
+      featureObj: any;
       startsWith: string;
       refFilter: string;
       projectFilter: string;
       resourceTitleAsc: boolean;
     } = {
       records: [],
+      featureObj: null,
       startsWith: "",
       refFilter: "",
       projectFilter: "",
@@ -380,6 +394,7 @@ export default Vue.extend({
         }
       });
       console.log(this.records[0]);
+      this.featureObj = this.records[0];
     } catch (error) {
       console.log("error fetching data " + error);
     }
@@ -399,10 +414,8 @@ export default Vue.extend({
     );
     showFormLabelPost.style.display = "none";
   },
-
   methods: {
     filterListProperties,
-
     startsWithFilter(value: string) {
       return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
     },
@@ -450,6 +463,7 @@ export default Vue.extend({
         this.records = cache;
       }
     },
+    filterRecords() {},
     print(text: string) {
       console.log(text);
     },
