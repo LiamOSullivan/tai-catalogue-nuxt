@@ -66,30 +66,6 @@
                   }}</span>
                   Airbus
                 </button>
-                <!-- <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[projectFilter === 'somosat' && 'active']"
-                @click.prevent="projectFilter = 'somosat'"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { project: "somosat" }).length
-                }}</span>
-                SoMoSAT
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                data-toggle="button"
-                :class="[projectFilter === 'suews' && 'active']"
-                @click.prevent="projectFilter = 'suews'"
-              >
-                <span class="badge bg-secondary text-white">{{
-                  filterListProperties(records, { project: "suews" }).length
-                }}</span>
-                SUEWS
-              </button> -->
 
                 <button
                   type="button"
@@ -161,10 +137,7 @@
             <div class="col-6 m-0"></div>
           </div>
           <div class="row m-2">
-            <MapFilter
-              @extent="filterOnExtent"
-              v-bind:featureObj="featureObj"
-            />
+            <MapFilter @extent="filterOnExtent" :features="records" />
           </div>
           <div class="row m-2">
             <dataset-custom
@@ -340,14 +313,12 @@ export default Vue.extend({
   data: () => {
     const data: {
       records: any[];
-      featureObj: any;
       startsWith: string;
       refFilter: string;
       projectFilter: string;
       resourceTitleAsc: boolean;
     } = {
       records: [],
-      featureObj: null,
       startsWith: "",
       refFilter: "",
       projectFilter: "",
@@ -394,7 +365,6 @@ export default Vue.extend({
         }
       });
       console.log(this.records[0]);
-      this.featureObj = this.records[0];
     } catch (error) {
       console.log("error fetching data " + error);
     }
@@ -463,7 +433,6 @@ export default Vue.extend({
         this.records = cache;
       }
     },
-    filterRecords() {},
     print(text: string) {
       console.log(text);
     },

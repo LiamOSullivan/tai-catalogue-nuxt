@@ -74,7 +74,7 @@ import "ol/ol.css";
 let extentInteraction;
 export default {
   name: "MapContainer",
-  props: { featureObj: Object },
+  props: { features: Array },
   data: () => ({
     map: null,
     featureLayer: null,
@@ -89,7 +89,7 @@ export default {
       source: featureSource,
     });
 
-    const map = new Map({
+    this.map = new Map({
       layers: [
         new TileLayer({
           source: new OSM(),
@@ -104,7 +104,7 @@ export default {
       }),
     });
 
-    map.setTarget(this.$refs["map-root"]);
+    this.map.setTarget(this.$refs["map-root"]);
     extentInteraction = new ExtentInteraction({
       condition: shiftKeyOnly,
       boxStyle: new Style({
@@ -114,25 +114,26 @@ export default {
         }),
       }),
     });
-    map.addInteraction(extentInteraction);
+    this.map.addInteraction(extentInteraction);
 
-    console.log(this.featureObj);
+    console.log(this.features.length);
     // // call`updateSource` to initialise
-    // if(this.featureObj !== null)
-    // this.updateSource(this.featureObj);
+    if (this.features !== null) {
+      this.updateSource(this.features);
+    }
     const self = this;
-    map.on("pointermove", function (evt) {
-      // if (evt.dragging && this.extent) {
-      //   self.extent = extentInteraction.getExtent().map((e) => {
-      //     return parseFloat(e.toFixed(2));
-      //   });
-      //   // console.log(self.extent);
-      // }
+    this.map.on("pointermove", function (evt) {
+      if (evt.dragging && this.extent) {
+        self.extent = extentInteraction.getExtent().map((e) => {
+          return parseFloat(e.toFixed(2));
+        });
+        // console.log(self.extent);
+      }
       // const pixel = map.getEventPixel(evt.originalEvent);
       // displayFeatureInfo(pixel);
     });
 
-    map.on("click", function (evt) {
+    this.map.on("click", function (evt) {
       // displayFeatureInfo(evt.pixel);
       // const pixel = map.getEventPixel(evt.originalEvent);
       // map.getFeaturesAtPixel(pixel).forEach((f) => {
@@ -145,7 +146,7 @@ export default {
     });
   },
   watch: {
-    featureObj: {
+    features: {
       handler: function (f) {
         console.log("handler");
         console.log(f.ol_uid);
@@ -156,31 +157,31 @@ export default {
   },
   methods: {
     // this will parse the input data and add it to the map
-    updateSource(featureObj) {
+    updateSource(features) {
       console.log("update source");
       // const view = this.map.getView();
       const source = this.featureLayer.getSource();
       source.clear();
-      source.addFeature(featureObj);
+      source.addFeatures(features);
 
       // this zooms the view on the created object
       // view.fit(source.getExtent());
     },
     emitExtent() {
-      //   console.log("emit extent: ", this.extent);
-      //   this.$emit("extent", this.extent);
+      console.log("emit extent: ", this.extent);
+      this.$emit("extent", this.extent);
     },
     clearExtent() {
-      // if (this.map !== null) {
-      //   console.log(this.map);
-      //   this.map.removeInteraction(extentInteraction);
-      //   this.extent = null;
-      //   extentInteraction = new ExtentInteraction({
-      //     condition: shiftKeyOnly,
-      //   });
-      //   this.map.addInteraction(extentInteraction);
-      //   this.$emit("extent", this.extent);
-      // }
+      if (this.map !== null) {
+        console.log(this.map);
+        this.map.removeInteraction(extentInteraction);
+        this.extent = null;
+        extentInteraction = new ExtentInteraction({
+          condition: shiftKeyOnly,
+        });
+        this.map.addInteraction(extentInteraction);
+        this.$emit("extent", this.extent);
+      }
     },
   },
 };
