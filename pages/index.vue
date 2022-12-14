@@ -33,14 +33,7 @@
         'res_title',
       ]"
       :ds-search-as="{}"
-      ><div class="row no-gutters">
-        <dataset-custom
-          class="form-row mb-3"
-          style="overflow-y: auto; max-height: 5vh"
-        >
-          Test
-        </dataset-custom>
-      </div>
+    >
       <div class="row no-gutters">
         <div class="col-5 m-0 p-0" id="search-col">
           <div class="row m-2">
@@ -172,6 +165,13 @@
               @extent="filterOnExtent"
               v-bind:featureObj="featureObj"
             />
+          </div>
+          <div class="row m-2">
+            <dataset-custom
+              class="form-row mb-3"
+              style="overflow-y: auto; max-height: 5vh"
+            >
+            </dataset-custom>
           </div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">

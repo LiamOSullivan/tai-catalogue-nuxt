@@ -1,7 +1,8 @@
 <template>
   <component :is="tag">
     <template>
-      {{ dsIndexes.length }}
+      <label for="count">Filtered Records count: </label>
+      <small>{{ dsIndexes.length }}</small>
     </template>
   </component>
 </template>
