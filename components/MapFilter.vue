@@ -92,6 +92,15 @@ export default {
     });
     this.featureLayer = new VectorLayer({
       source: featureSource,
+      style: new Style({
+        stroke: new Stroke({
+          color: "rgba(1, 67, 86, 0.7 )",
+          width: 1,
+        }),
+        fill: new Fill({
+          color: "transparent",
+        }),
+      }),
     });
 
     this.map = new Map({
@@ -114,8 +123,11 @@ export default {
       condition: shiftKeyOnly,
       boxStyle: new Style({
         stroke: new Stroke({
-          color: "rgba(1, 67, 86, 0.7 )",
-          width: 2,
+          color: "rgba(0, 153, 255, 0.8 )",
+          width: 3,
+        }),
+        fill: new Fill({
+          color: "transparent",
         }),
       }),
     });
@@ -178,8 +190,11 @@ export default {
           condition: shiftKeyOnly,
           boxStyle: new Style({
             stroke: new Stroke({
-              color: "rgba(1, 67, 86, 0.7 )",
-              width: 2,
+              color: "blue",
+              width: 3,
+            }),
+            fill: new Fill({
+              color: "transparent",
             }),
           }),
         });
