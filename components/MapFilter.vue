@@ -47,6 +47,10 @@
             Clear
           </button>
         </div>
+        <label for="count" style="margin-top: 8px"
+          >Filtered Records count:
+        </label>
+        <small id="count">{{ dsIndexes.length }}</small>
       </div>
     </div>
   </div>
@@ -75,10 +79,11 @@ let extentInteraction;
 export default {
   name: "MapContainer",
   props: { features: Array },
+  inject: ["rdsIndexes"],
   data: () => ({
     map: null,
     featureLayer: null,
-    // extent: null,
+    extent: null,
   }),
   async mounted() {
     const featureSource = new VectorSource({
@@ -123,36 +128,29 @@ export default {
     }
     const self = this;
     this.map.on("pointermove", function (evt) {
-      if (evt.dragging && this.extent) {
+      if (evt.dragging && extentInteraction.getExtent()) {
         self.extent = extentInteraction.getExtent().map((e) => {
           return parseFloat(e.toFixed(2));
         });
-        // console.log(self.extent);
+        console.log(self.extent);
       }
-      // const pixel = map.getEventPixel(evt.originalEvent);
-      // displayFeatureInfo(pixel);
     });
 
-    this.map.on("click", function (evt) {
-      // displayFeatureInfo(evt.pixel);
-      // const pixel = map.getEventPixel(evt.originalEvent);
-      // map.getFeaturesAtPixel(pixel).forEach((f) => {
-      //   if (f.getProperties().dataset_type === "soil_moisture") {
-      //     window.location.href = "../charts/soils/" + f.getProperties().tai_id;
-      //   } else {
-      //     window.location.href = "../charts/met/" + f.getProperties().tai_id;
-      //   }
-      // });
-    });
+    this.map.on("click", function (evt) {});
   },
   watch: {
     features: {
       handler: function (f) {
         console.log("handler");
-        console.log(f.ol_uid);
         this.updateSource(f);
       },
       deep: true,
+    },
+  },
+  computed: {
+    /* Setup reactive injects */
+    dsIndexes() {
+      return this.rdsIndexes();
     },
   },
   methods: {
@@ -178,6 +176,12 @@ export default {
         this.extent = null;
         extentInteraction = new ExtentInteraction({
           condition: shiftKeyOnly,
+          boxStyle: new Style({
+            stroke: new Stroke({
+              color: "rgba(1, 67, 86, 0.7 )",
+              width: 2,
+            }),
+          }),
         });
         this.map.addInteraction(extentInteraction);
         this.$emit("extent", this.extent);

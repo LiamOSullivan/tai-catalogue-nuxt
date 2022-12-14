@@ -139,13 +139,7 @@
           <div class="row m-2">
             <MapFilter @extent="filterOnExtent" :features="records" />
           </div>
-          <div class="row m-2">
-            <dataset-custom
-              class="form-row mb-3"
-              style="overflow-y: auto; max-height: 5vh"
-            >
-            </dataset-custom>
-          </div>
+          <div class="row m-2"></div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">
           <div class="row m-0 mt-3">
@@ -423,7 +417,7 @@ export default Vue.extend({
         });
         let recordsIxFeatures: any[] = [];
 
-        recordsSource.forEachFeatureIntersectingExtent(extent, (f) => {
+        recordsSource.forEachFeatureInExtent(extent, (f) => {
           recordsIxFeatures.push(f);
           return false;
         });
