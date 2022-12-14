@@ -103,6 +103,12 @@ export default Vue.extend({
     map.setTarget(this.$refs["map-root"]);
     extentInteraction = new ExtentInteraction({
       condition: shiftKeyOnly,
+      boxStyle: new Style({
+        stroke: new Stroke({
+          color: "rgba(1, 67, 86, 0.7)",
+          width: 2,
+        }),
+      }),
     });
     map.addInteraction(extentInteraction);
 
@@ -117,29 +123,29 @@ export default Vue.extend({
     //   console.log(geojson);
     // }
 
-    let draw = new Draw({
-      source: drawSource,
-      type: "Polygon",
-    });
-    // map.addInteraction(draw);
+    // let draw = new Draw({
+    //   source: drawSource,
+    //   type: "Polygon",
+    // });
+    // // map.addInteraction(draw);
 
-    const hightlightStroke = new Stroke({
-      color: "rgba(255, 255, 255, 0.7)",
-      width: 2,
-    });
+    // const hightlightStroke = new Stroke({
+    //   color: "rgba(255, 25, 255, 0.7)",
+    //   width: 2,
+    // });
 
-    const highlightCircle = new Circle({
-      radius: 10,
-      stroke: new Stroke({
-        color: "red",
-        width: 2,
-      }),
-    });
+    // const highlightCircle = new Circle({
+    //   radius: 10,
+    //   stroke: new Stroke({
+    //     color: "red",
+    //     width: 2,
+    //   }),
+    // });
 
-    const highlightStyle = new Style({
-      stroke: hightlightStroke,
-      image: highlightCircle,
-    });
+    // const highlightStyle = new Style({
+    //   stroke: hightlightStroke,
+    //   image: highlightCircle,
+    // });
 
     // const source = new VectorSource();
 
@@ -157,7 +163,7 @@ export default Vue.extend({
         self.extent = extentInteraction.getExtent().map((e) => {
           return parseFloat(e.toFixed(2));
         });
-        console.log(self.extent);
+        // console.log(self.extent);
       }
       // const pixel = map.getEventPixel(evt.originalEvent);
       // displayFeatureInfo(pixel);
