@@ -307,12 +307,14 @@ export default Vue.extend({
   data: () => {
     const data: {
       records: any[];
+      filteredRecords: any[];
       startsWith: string;
       refFilter: string;
       projectFilter: string;
       resourceTitleAsc: boolean;
     } = {
       records: [],
+      filteredRecords: [],
       startsWith: "",
       refFilter: "",
       projectFilter: "",

@@ -152,11 +152,21 @@ export default {
   },
   watch: {
     features: {
-      handler: function (f) {
+      handler: function (fs) {
         console.log("handler");
-        this.updateSource(f);
+        console.log(fs.length);
+        console.log(this.rdsIndexes());
+        this.updateSource(fs);
       },
       deep: true,
+    },
+    dsIndexes: {
+      handler: function (dsI) {
+        console.log("index change");
+        console.log(dsI);
+        const indexedFeatures = this.getFeaturesByIndexes(dsI);
+        this.updateSource(indexedFeatures);
+      },
     },
   },
   computed: {
@@ -166,6 +176,15 @@ export default {
     },
   },
   methods: {
+    getFeaturesByIndexes(indexes) {
+      const currentFeatures = this.features;
+      console.log(currentFeatures.length);
+      const filteredFeatures = indexes.map((index) => {
+        return currentFeatures[index];
+      });
+      console.log(filteredFeatures.length);
+      return filteredFeatures;
+    },
     // this will parse the input data and add it to the map
     updateSource(features) {
       console.log("update source");
