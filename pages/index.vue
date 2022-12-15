@@ -361,7 +361,6 @@ export default Vue.extend({
           cache.push(f); // init the cache
         }
       });
-      console.log(this.records[0]);
     } catch (error) {
       console.log("error fetching data " + error);
     }

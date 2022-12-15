@@ -152,17 +152,14 @@ export default {
   watch: {
     features: {
       handler: function (fs) {
-        console.log("handler");
-        console.log(fs.length);
-        console.log(this.rdsIndexes());
         this.updateSource(fs);
       },
       deep: true,
     },
     dsIndexes: {
       handler: function (dsI) {
-        console.log("index change");
-        console.log(dsI);
+        // console.log("index change");
+        // console.log(dsI);
         const indexedFeatures = this.getFeaturesByIndexes(dsI);
         this.updateSource(indexedFeatures);
       },
@@ -177,16 +174,16 @@ export default {
   methods: {
     getFeaturesByIndexes(indexes) {
       const currentFeatures = this.features;
-      console.log(currentFeatures.length);
+      // console.log(currentFeatures.length);
       const filteredFeatures = indexes.map((index) => {
         return currentFeatures[index];
       });
-      console.log(filteredFeatures.length);
+      // console.log(filteredFeatures.length);
       return filteredFeatures;
     },
     // this will parse the input data and add it to the map
     updateSource(features) {
-      console.log("update source");
+      // console.log("update source");
 
       const source = this.featureLayer.getSource();
       source.clear();
@@ -203,7 +200,7 @@ export default {
       }
     },
     emitExtent() {
-      console.log("emit extent: ", this.extent);
+      // console.log("emit extent: ", this.extent);
       this.$emit("extent", this.extent);
       // if (this.extent) {
       //   const view = this.map.getView();
@@ -217,7 +214,7 @@ export default {
     },
     clearExtent() {
       if (this.map !== null) {
-        console.log(this.map);
+        // console.log(this.map);
         this.map.removeInteraction(extentInteraction);
         this.extent = null;
         extentInteraction = new ExtentInteraction({
@@ -276,47 +273,3 @@ label {
   padding-bottom: 8px;
 }
 </style>
-// extentInteraction.on("extentend", (listener) => {
-    //   console.log("extentchanged");
-    // });
-
-    // this.extent = extentInteraction.getExtent();
-    // if (extent) {
-    //   const poly = new Polygon(extent);
-    //   let geojson = new GeoJSON().writeFeatures([new Feature()]);
-    //   console.log(geojson);
-    // }
-
-    // let draw = new Draw({
-    //   source: drawSource,
-    //   type: "Polygon",
-    // });
-    // // map.addInteraction(draw);
-
-    // const hightlightStroke = new Stroke({
-    //   color: "rgba(255, 25, 255, 0.7)",
-    //   width: 2,
-    // });
-
-    // const highlightCircle = new Circle({
-    //   radius: 10,
-    //   stroke: new Stroke({
-    //     color: "red",
-    //     width: 2,
-    //   }),
-    // });
-
-    // const highlightStyle = new Style({
-    //   stroke: hightlightStroke,
-    //   image: highlightCircle,
-    // });
-
-    // const source = new VectorSource();
-
-    // const featureOverlay = new VectorLayer({
-    //   source,
-    //   map: map,
-    //   style: highlightStyle,
-    // });
-
-    // const hoverOverlay = await getHoverOverlayFeature(map);
