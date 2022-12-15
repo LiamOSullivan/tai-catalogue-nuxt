@@ -133,7 +133,6 @@ export default {
     });
     this.map.addInteraction(extentInteraction);
 
-    console.log(this.features.length);
     // // call`updateSource` to initialise
     if (this.features !== null) {
       this.updateSource(this.features);
@@ -188,17 +187,33 @@ export default {
     // this will parse the input data and add it to the map
     updateSource(features) {
       console.log("update source");
-      // const view = this.map.getView();
+
       const source = this.featureLayer.getSource();
       source.clear();
       source.addFeatures(features);
 
-      // this zooms the view on the created object
-      // view.fit(source.getExtent());
+      if (source.getFeatures().length > 0) {
+        const view = this.map.getView();
+        // this zooms the view on the created object
+        const newExtent = source.getExtent();
+        view.fit(newExtent, {
+          padding: [0, 25, 0, 25],
+          duration: 500,
+        });
+      }
     },
     emitExtent() {
       console.log("emit extent: ", this.extent);
       this.$emit("extent", this.extent);
+      // if (this.extent) {
+      //   const view = this.map.getView();
+      //   // this zooms the view on the created object
+
+      //   view.fit(this.extent, {
+      //     padding: [0, 25, 0, 25],
+      //     duration: 500,
+      //   });
+      // }
     },
     clearExtent() {
       if (this.map !== null) {

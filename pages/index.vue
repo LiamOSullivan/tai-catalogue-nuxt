@@ -277,6 +277,7 @@ import MapFilter from "~/components/MapFilter.vue";
 import DatasetCustom from "~/components/DatasetCustom.vue";
 import GeoJSON from "ol/format/GeoJSON";
 import Vector from "ol/source/Vector";
+import { containsExtent } from "ol/extent";
 
 import {
   Dataset,
@@ -418,11 +419,17 @@ export default Vue.extend({
           features: this.records,
         });
         let recordsIxFeatures: any[] = [];
-
-        recordsSource.forEachFeatureInExtent(extent, (f) => {
-          recordsIxFeatures.push(f);
-          return false;
+        recordsIxFeatures = recordsSource.getFeaturesInExtent(extent);
+        console.log(recordsIxFeatures.length);
+        recordsIxFeatures = recordsIxFeatures.filter((f) => {
+          return containsExtent(extent, f.getGeometry().getExtent());
         });
+        console.log(recordsIxFeatures.length);
+
+        // recordsSource.forEachFeatureInExtent(extent, (f) => {
+        //   recordsIxFeatures.push(f);
+        //   return false;
+        // });
         cache = this.records;
         this.records = recordsIxFeatures;
       } else {
