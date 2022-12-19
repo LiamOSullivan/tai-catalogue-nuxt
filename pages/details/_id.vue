@@ -4,7 +4,12 @@
       <div class="row no-gutters" id="top-bar">
         <div class="col">
           <h4 class="page-head">
-            <a href="/">Airbus</a>
+            <!-- <a href="/">Airbus</a> -->
+            <img
+              style="height: 32px"
+              src="/airbus_branding/logo.svg"
+              alt="airbus company logo"
+            />
             <span> | Aerial Survey Catalogue </span>
           </h4>
         </div>
@@ -15,7 +20,6 @@
         </div>
       </div>
     </header>
-
     <div id="grid" v-if="res_title" class="container">
       <div class="res_title text-left m-3">
         <h3>{{ res_title }}</h3>
@@ -383,10 +387,14 @@ ul {
   color: white;
 }
 
+.page-head {
+  color: white;
+}
+
 #top-bar {
   background: rgb(0, 33, 91);
   color: white;
-  padding: 14px 48px;
+  padding: 14px 0.5rem;
   /* height: 60px; */
   display: flex;
   align-items: center;
