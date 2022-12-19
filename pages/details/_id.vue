@@ -245,8 +245,9 @@ export default Vue.extend({
       this.res_title = capitalise(res_title);
       this.date_range = getDateRangeString(date_from, date_to);
       this.tai_id = tai_id;
+      console.log(displayProps);
 
-      if (!!validSites[tai_id]) {
+      if (!!validSites[tai_id] && displayProps.ref === "in-situ") {
         const baseAttrURL =
           "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/";
         if (validSites[tai_id].attr_table) {
