@@ -4,19 +4,14 @@
       <div class="row no-gutters" id="top-bar">
         <div class="col">
           <h4 class="page-head">
-            <a href="/">Terrain-AI</a>
-            <span>
-              | Data Catalogue
-              <!-- {% if page_header %}
-            {{ page_header }}
-            {% else %} Data Platform{% endif %} -->
-            </span>
+            <a href="/">Airbus</a>
+            <span> | Aerial Survey Catalogue </span>
           </h4>
         </div>
         <div class="col page-head__title">
-          <h4 id="page-title" class="page-head bold" style="text-align: right">
-            Dataset Details
-          </h4>
+          <h6 id="page-title" class="page-head bold" style="text-align: right">
+            Log In <span>&#9888;</span>
+          </h6>
         </div>
       </div>
     </header>
@@ -187,6 +182,7 @@ export default Vue.extend({
       supplemental: string[];
       hasSupplemental: boolean;
       data_viewer: string;
+      project: string;
     } = {
       data: {},
       poly: null,
@@ -199,6 +195,7 @@ export default Vue.extend({
       supplemental: [],
       hasSupplemental: false,
       data_viewer: null,
+      project: null,
     };
 
     return data;
@@ -230,6 +227,7 @@ export default Vue.extend({
         tai_id,
         date_from,
         date_to,
+        project,
         ...displayProps
       } = features[0].getProperties();
       // console.log(displayProps);
@@ -349,7 +347,7 @@ h4,
 h5,
 h6 {
   font-weight: 400;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 
 p,
@@ -357,7 +355,7 @@ ul,
 li,
 small {
   font-weight: 300;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 
 a,
@@ -369,7 +367,7 @@ span {
 
 b {
   font-weight: 400;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 
 ul {
@@ -386,7 +384,7 @@ ul {
 }
 
 #top-bar {
-  background: #014356;
+  background: rgb(0, 33, 91);
   color: white;
   padding: 14px 48px;
   /* height: 60px; */
@@ -433,14 +431,14 @@ ul {
 
 .back {
   grid-area: back;
-  color: #014356;
+  color: rgb(0, 33, 91);
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 .back button {
-  color: #014356;
-  outline-color: #014356;
+  color: rgb(0, 33, 91);
+  outline-color: rgb(0, 33, 91);
 }
 .btn {
   max-height: 56px;
@@ -448,8 +446,8 @@ ul {
 
 .btn:hover {
   color: white;
-  background-color: #014356;
-  border-color: #014356;
+  background-color: rgb(0, 33, 91);
+  border-color: rgb(0, 33, 91);
 }
 
 .res_abs {
@@ -542,17 +540,17 @@ ul {
 .viewer .card-body {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .viewer button {
-  color: #014356;
-  outline-color: #014356;
+  color: rgb(0, 33, 91);
+  outline-color: rgb(0, 33, 91);
   min-height: 48px;
 }
 
 .viewer button {
-  color: #014356;
-  outline-color: #014356;
+  color: rgb(0, 33, 91);
+  outline-color: rgb(0, 33, 91);
 }
 
 .supplemental {

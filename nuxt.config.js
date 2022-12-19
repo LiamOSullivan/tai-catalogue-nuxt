@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Terrain-AI | Data Catalogue",
+    title: "Airbus | Aerial Survey Catalogue",
     htmlAttrs: {
       lang: "en",
     },

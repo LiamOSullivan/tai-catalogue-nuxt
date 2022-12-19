@@ -47,10 +47,10 @@
             Clear
           </button>
         </div>
-        <label for="count" style="margin-top: 8px"
+        <!-- <label for="count" style="margin-top: 8px"
           >Filtered Records count:
         </label>
-        <small id="count">{{ dsIndexes.length }}</small>
+        <small id="count">{{ dsIndexes.length }}</small> -->
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
       source: featureSource,
       style: new Style({
         stroke: new Stroke({
-          color: "rgba(1, 67, 86, 0.7 )",
+          color: "rgb(0, 33, 91)",
           width: 1,
         }),
         fill: new Fill({

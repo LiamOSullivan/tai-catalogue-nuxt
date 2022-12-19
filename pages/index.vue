@@ -4,13 +4,18 @@
       <div class="row no-gutters" id="top-bar">
         <div class="col">
           <h4 class="page-head">
-            <a href="/">Terrain-AI</a>
+            <!-- <a href="/">Airbus</a> -->
+            <img
+              style="height: 32px"
+              src="/airbus_branding/logo.svg"
+              alt="airbus company logo"
+            />
             <span> | Aerial Survey Catalogue </span>
           </h4>
         </div>
         <div class="col page-head__title">
           <h6 id="page-title" class="page-head bold" style="text-align: right">
-            Log In
+            Log In <span>&#9888;</span>
           </h6>
         </div>
       </div>
@@ -77,7 +82,7 @@
                   <span class="badge bg-secondary text-white">{{
                     filterListProperties(records, { project: "tai" }).length
                   }}</span>
-                  Terrain-AI
+                  External
                 </button>
               </div>
             </div>
@@ -142,11 +147,12 @@
           <div class="row m-2"></div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">
-          <div class="row m-0 mt-3">
+          <div class="row m-0 mt-3 p-0">
             <div
-              class="row justify-content-between mb-2"
+              class="row justify-content-between m-0 p-0 mb-2"
               :data-page-count="ds.dsPagecount"
             >
+              <!-- <dataset-info /> -->
               <div class="col-md-3 mb-0 mb-md-0">
                 <label> Sort by </label><br />
                 <button
@@ -164,10 +170,10 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row m-0 p-0 mb-2">
               <div class="col-md-12">
                 <dataset-item
-                  class="form-row mb-3"
+                  class="form-row m-0 mb-3"
                   style="overflow-y: auto; max-height: 75vh"
                 >
                   <template #default="{ row, rowIndex }">
@@ -247,6 +253,7 @@
                 flex-md-row flex-column
                 justify-content-between
                 align-items-center
+                mb-2
               "
             >
               <dataset-info class="mb-2 mb-md-0" />
@@ -449,7 +456,7 @@ h5,
 h6,
 label {
   font-weight: 400;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 h5 {
   font-size: 95%;
@@ -471,7 +478,7 @@ p,
 ul,
 li {
   font-weight: 300;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 small {
   font-weight: 300;
@@ -486,7 +493,7 @@ span {
 
 b {
   font-weight: 400;
-  color: #014356;
+  color: rgb(0, 33, 91);
 }
 
 ul {
@@ -503,7 +510,7 @@ ul {
 }
 
 #top-bar {
-  background: #014356;
+  background: rgb(0, 33, 91);
   color: white;
   padding: 14px 0.5rem;
   /* height: 60px; */
@@ -515,13 +522,13 @@ ul {
 #search-col {
   display: flex;
   flex-direction: column;
-  background-color: #01445629;
+  background-color: rgb(241, 242, 248);
 }
 .form-control-sm {
   background-color: transparent;
   font-size: 70%;
-  color: #014356;
-  border: 1px solid #014356;
+  color: rgb(0, 33, 91);
+  border: 1px solid rgb(0, 33, 91);
 }
 
 #results-col {
@@ -551,7 +558,7 @@ ul {
 .btn-group .btn.active {
   margin-bottom: 16px;
   border-radius: 4px 4px 4px 4px;
-  background-color: rgba(1, 67, 86, 0.85);
+  background-color: rgb(0, 33, 91);
 }
 
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
@@ -566,27 +573,27 @@ ul {
   top: -16px;
   right: -4px;
   z-index: 10;
-  background-color: #014356;
+  background-color: rgb(0, 33, 91);
 }
 
 .btn-sm {
   font-size: 75%;
 }
 .btn-outline-primary {
-  border: 1px solid #014356;
-  color: #014356;
+  border: 1px solid rgb(0, 33, 91);
+  color: rgb(0, 33, 91);
 }
 .btn-outline-primary:hover,
 .btn-outline-primary.active {
-  border: 1px solid #014356;
-  background-color: #014356;
+  border: 1px solid rgb(0, 33, 91);
+  background-color: rgb(0, 33, 91);
   color: white;
 }
 
 .bg-secondary {
   --bs-bg-opacity: 1;
   /* background-color: rgba(108, 117, 125, var(--bs-bg-opacity)) !important; */
-  background-color: rgba(1, 67, 86, 0.85) !important;
+  background-color: rgb(0, 33, 91) !important;
 }
 
 .card {
