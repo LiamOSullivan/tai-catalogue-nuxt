@@ -4,13 +4,14 @@
       <div class="row no-gutters" id="top-bar">
         <div class="col">
           <h4 class="page-head">
-            <a href="/">Terrain-AI</a>
-            <span> | Data Catalogue </span>
-            <!-- <img
-              style="height: 32px"
-              src="/airbus_branding/logo.svg"
-              alt="airbus company logo"
-            /> -->
+            <a href="/"
+              ><img
+                style="height: 64px"
+                src="/tai_branding/logo_colour_variations/Terrain-AI logo white.svg"
+                alt="terrain-ai company logo"
+              />
+            </a>
+            <span> Terrain-AI | Data Catalogue </span>
           </h4>
         </div>
         <div class="col page-head__title">
@@ -61,7 +62,7 @@
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-primary"
+                  class="btn btn-outline-primary disabled"
                   data-toggle="button"
                   :class="[projectFilter === 'airbus' && 'active']"
                   @click.prevent="projectFilter = 'airbus'"
@@ -70,6 +71,18 @@
                     filterListProperties(records, { project: "airbus" }).length
                   }}</span>
                   Airbus
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-toggle="button"
+                  :class="[projectFilter === 'airbus' && 'active']"
+                  @click.prevent="projectFilter = 'airbus'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { project: "somosat" }).length
+                  }}</span>
+                  SoMoSAT
                 </button>
 
                 <button
@@ -386,7 +399,7 @@ export default Vue.extend({
   async created() {
     try {
       let baseURLJson =
-        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?format=json";
+        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2Csomosat%2Cairbus&format=json";
 
       const res = await axios.get(`${baseURLJson}`);
 
@@ -398,6 +411,8 @@ export default Vue.extend({
         f.project = f.getProperties().project
           ? f.getProperties().project.toLowerCase()
           : "none";
+        console.log(f.project);
+
         // need to pull the keys for sorting etc. out of nested properties, as dataset methods can't traverse down
         [
           "ref",
@@ -554,6 +569,8 @@ ul {
 
 .page-head {
   color: white;
+  padding: 0;
+  margin: 0;
 }
 
 #top-bar {
