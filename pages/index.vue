@@ -5,12 +5,17 @@
         <div class="col">
           <h4 class="page-head">
             <a href="/">Terrain-AI</a>
-            <span> | Aerial Survey Catalogue </span>
+            <span> | Data Catalogue </span>
+            <!-- <img
+              style="height: 32px"
+              src="/airbus_branding/logo.svg"
+              alt="airbus company logo"
+            /> -->
           </h4>
         </div>
         <div class="col page-head__title">
           <h6 id="page-title" class="page-head bold" style="text-align: right">
-            Log In
+            Log In <span>&#9888;</span>
           </h6>
         </div>
       </div>
@@ -101,6 +106,18 @@
                 <button
                   type="button"
                   class="btn btn-outline-primary"
+                  :class="[refFilter === 'Spaceborne' && 'active']"
+                  @click.prevent="refFilter = 'Spaceborne'"
+                  data-toggle="button"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "Spaceborne" }).length
+                  }}</span>
+                  Spaceborne
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
                   data-toggle="button"
                   :class="[refFilter === 'Airborne' && 'active']"
                   @click.prevent="refFilter = 'Airborne'"
@@ -122,6 +139,42 @@
                   }}</span>
                   UAV
                 </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-toggle="button"
+                  :class="[refFilter === 'GIS' && 'active']"
+                  @click.prevent="refFilter = 'GIS'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "GIS" }).length
+                  }}</span>
+                  GIS
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-toggle="button"
+                  :class="[refFilter === 'In-situ' && 'active']"
+                  @click.prevent="refFilter = 'In-situ'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "In-situ" }).length
+                  }}</span>
+                  In-situ
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-toggle="button"
+                  :class="[refFilter === 'Modelled' && 'active']"
+                  @click.prevent="refFilter = 'Modelled'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { ref: "Modelled" }).length
+                  }}</span>
+                  Modelled
+                </button>
               </div>
             </div>
           </div>
@@ -142,9 +195,9 @@
           <div class="row m-2"></div>
         </div>
         <div class="col-7 m-0 p-0" id="results-col">
-          <div class="row m-0 mt-3">
+          <div class="row m-0 mt-3 p-0">
             <div
-              class="row justify-content-between mb-2"
+              class="row justify-content-between m-0 p-0 mb-2"
               :data-page-count="ds.dsPagecount"
             >
               <div class="col-md-3 mb-0 mb-md-0">
@@ -164,10 +217,10 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row m-0 p-0 mb-2">
               <div class="col-md-12">
                 <dataset-item
-                  class="form-row mb-3"
+                  class="form-row m-0 mb-3"
                   style="overflow-y: auto; max-height: 75vh"
                 >
                   <template #default="{ row, rowIndex }">
@@ -247,6 +300,7 @@
                 flex-md-row flex-column
                 justify-content-between
                 align-items-center
+                mb-2
               "
             >
               <dataset-info class="mb-2 mb-md-0" />
@@ -332,7 +386,7 @@ export default Vue.extend({
   async created() {
     try {
       let baseURLJson =
-        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2CSOMOSAT%2Cairbus&format=json";
+        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?format=json";
 
       const res = await axios.get(`${baseURLJson}`);
 
@@ -356,10 +410,10 @@ export default Vue.extend({
         ].forEach((key) => {
           f[key] = f.getProperties()[key];
         });
-        if (f["ref"] === "Airborne" || f["ref"] === "UAV") {
-          this.records.push(f);
-          cache.push(f); // init the cache
-        }
+        // if (f["ref"] === "Airborne" || f["ref"] === "UAV") {
+        this.records.push(f);
+        cache.push(f); // init the cache
+        // }
       });
     } catch (error) {
       console.log("error fetching data " + error);
