@@ -5,18 +5,18 @@
         <div class="col">
           <h4 class="page-head">
             <a href="/">Terrain-AI</a>
-            <span>
-              | Data Catalogue
-              <!-- {% if page_header %}
-            {{ page_header }}
-            {% else %} Data Platform{% endif %} -->
-            </span>
+            <span> | Data Catalogue </span>
+            <!-- <img
+              style="height: 32px"
+              src="/airbus_branding/logo.svg"
+              alt="airbus company logo"
+            /> -->
           </h4>
         </div>
         <div class="col page-head__title">
-          <h4 id="page-title" class="page-head bold" style="text-align: right">
-            Dataset Details
-          </h4>
+          <h6 id="page-title" class="page-head bold" style="text-align: right">
+            Log In <span>&#9888;</span>
+          </h6>
         </div>
       </div>
     </header>
@@ -187,6 +187,7 @@ export default Vue.extend({
       supplemental: string[];
       hasSupplemental: boolean;
       data_viewer: string;
+      project: string;
     } = {
       data: {},
       poly: null,
@@ -199,6 +200,7 @@ export default Vue.extend({
       supplemental: [],
       hasSupplemental: false,
       data_viewer: null,
+      project: null,
     };
 
     return data;
@@ -230,6 +232,7 @@ export default Vue.extend({
         tai_id,
         date_from,
         date_to,
+        project,
         ...displayProps
       } = features[0].getProperties();
       // console.log(displayProps);
@@ -243,8 +246,9 @@ export default Vue.extend({
       this.res_title = capitalise(res_title);
       this.date_range = getDateRangeString(date_from, date_to);
       this.tai_id = tai_id;
+      console.log(displayProps);
 
-      if (!!validSites[tai_id]) {
+      if (!!validSites[tai_id] && displayProps.ref === "in-situ") {
         const baseAttrURL =
           "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/";
         if (validSites[tai_id].attr_table) {
@@ -542,7 +546,7 @@ ul {
 .viewer .card-body {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .viewer button {
   color: #014356;
