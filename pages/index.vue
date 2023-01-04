@@ -76,15 +76,26 @@
                   type="button"
                   class="btn btn-outline-primary"
                   data-toggle="button"
-                  :class="[projectFilter === 'airbus' && 'active']"
-                  @click.prevent="projectFilter = 'airbus'"
+                  :class="[projectFilter === 'somosat' && 'active']"
+                  @click.prevent="projectFilter = 'somosat'"
                 >
                   <span class="badge bg-secondary text-white">{{
                     filterListProperties(records, { project: "somosat" }).length
                   }}</span>
                   SoMoSAT
                 </button>
-
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  data-toggle="button"
+                  :class="[projectFilter === 'suews' && 'active']"
+                  @click.prevent="projectFilter = 'suews'"
+                >
+                  <span class="badge bg-secondary text-white">{{
+                    filterListProperties(records, { project: "suews" }).length
+                  }}</span>
+                  SUEWS
+                </button>
                 <button
                   type="button"
                   class="btn btn-outline-primary"
@@ -399,7 +410,7 @@ export default Vue.extend({
   async created() {
     try {
       let baseURLJson =
-        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2Csomosat%2Cairbus&format=json";
+        "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2Csomosat%2Cairbus%2Csuews&format=json";
 
       const res = await axios.get(`${baseURLJson}`);
 
