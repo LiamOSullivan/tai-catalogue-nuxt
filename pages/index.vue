@@ -28,7 +28,7 @@
       :ds-filter-fields="{
         ref: refFilter,
         project: projectFilter,
-        name: startsWithFilter,
+        name: nameFilter,
       }"
       :ds-sortby="[sortResourceTitle]"
       :ds-search-in="[
@@ -112,7 +112,7 @@
             </div>
             <div class="col-6 m-0">
               <label style="padding-bottom: 24px" for="ref-buttons"
-                >Survey Type</label
+                >Reference</label
               >
               <div class="btn-group btn-group-sm m-0 p-0" name="ref-buttons">
                 <button
@@ -202,7 +202,6 @@
               </div>
             </div>
           </div>
-
           <div class="row m-2">
             <div class="col-6 m-0">
               <label> Text Search</label>
@@ -211,7 +210,25 @@
                 class="form-control-sm"
               />
             </div>
-            <div class="col-6 m-0"></div>
+            <div class="col-6 m-0">
+              <label>T-AI Benchmark Sites ({{ sites.length }}) </label>
+              <!-- <div>Selected: {{ nameFilter }}</div> -->
+              <select
+                id="select-site"
+                class="form-control-sm"
+                v-model="nameFilter"
+              >
+                <option disabled value="-1">Please select site</option>
+                <option value="">All</option>
+                <option
+                  :value="site.name"
+                  v-for="site in sites"
+                  :key="site.tai_id"
+                >
+                  {{ site.label }}
+                </option>
+              </select>
+            </div>
           </div>
           <div class="row m-2">
             <MapFilter @extent="filterOnExtent" :features="records" />
@@ -387,17 +404,21 @@ export default Vue.extend({
     const data: {
       records: any[];
       filteredRecords: any[];
+      sites: any[];
       startsWith: string;
       refFilter: string;
       projectFilter: string;
       resourceTitleAsc: boolean;
+      nameFilter: string;
     } = {
       records: [],
       filteredRecords: [],
+      sites: [],
       startsWith: "",
       refFilter: "",
       projectFilter: "",
       resourceTitleAsc: true,
+      nameFilter: "",
     };
 
     return data;
@@ -409,20 +430,18 @@ export default Vue.extend({
   },
   async created() {
     try {
-      let baseURLJson =
+      let dataUrl =
         "https://tai-api.terrainai.com/api/v1/dc/dc-data/?project=tai%2Csomosat%2Cairbus%2Csuews&format=json";
 
-      const res = await axios.get(`${baseURLJson}`);
-
-      const featuresTAI = new GeoJSON().readFeatures(res.data[0], {
+      const dataRes = await axios.get(`${dataUrl}`);
+      const dataAsFeatures = new GeoJSON().readFeatures(dataRes.data[0], {
         dataProjection: "EPSG:4326",
         featureProjection: "EPSG:3857",
       });
-      featuresTAI.forEach((f: any) => {
+      dataAsFeatures.forEach((f: any) => {
         f.project = f.getProperties().project
           ? f.getProperties().project.toLowerCase()
           : "none";
-        console.log(f.project);
 
         // need to pull the keys for sorting etc. out of nested properties, as dataset methods can't traverse down
         [
@@ -433,14 +452,33 @@ export default Vue.extend({
           "res_abs",
           "keyword",
           "name",
+          "tai_id",
         ].forEach((key) => {
           f[key] = f.getProperties()[key];
         });
-        // if (f["ref"] === "Airborne" || f["ref"] === "UAV") {
+        console.log(f.name);
+
         this.records.push(f);
         cache.push(f); // init the cache
-        // }
       });
+    } catch (error) {
+      console.log("error fetching data " + error);
+    }
+    try {
+      let sitesUrl = "https://tai-api.terrainai.com/api/v1/tai_sites/all";
+      const sitesRes = await axios.get(`${sitesUrl}`);
+      const sitesAsFeatures = new GeoJSON().readFeatures(sitesRes.data[0], {
+        dataProjection: "EPSG:4326",
+        featureProjection: "EPSG:3857",
+      });
+
+      sitesAsFeatures.forEach((f: any) => {
+        ["name", "label", "tai_id", "type_label"].forEach((key) => {
+          f[key] = f.getProperties()[key];
+        });
+        // console.log(f.name, f.label, f.tai_id);
+      });
+      this.sites = sitesAsFeatures;
     } catch (error) {
       console.log("error fetching data " + error);
     }
@@ -462,9 +500,9 @@ export default Vue.extend({
   },
   methods: {
     filterListProperties,
-    startsWithFilter(value: string) {
-      return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
-    },
+    // startsWithFilter(value: string) {
+    //   return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
+    // },
     getViewerUrl(row: any) {
       // TODO: do empty table values return undefined?
       const hasUrl =
@@ -604,6 +642,7 @@ ul {
   font-size: 70%;
   color: #014356;
   border: 1px solid #014356;
+  width: 100%;
 }
 
 #results-col {

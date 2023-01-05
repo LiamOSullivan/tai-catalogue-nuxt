@@ -1,0 +1,1108 @@
+[
+  {
+    "features": [
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Greater-Dublin",
+          "name": "greater-dublin",
+          "tai_id": 0,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Dundrum-Sandyford",
+          "name": "dundrum-sandyford",
+          "tai_id": 1,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Inchicore",
+          "name": "inchicore",
+          "tai_id": 2,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Rathmines",
+          "name": "rathmines",
+          "tai_id": 3,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Navan",
+          "name": "navan",
+          "tai_id": 4,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -10.76660076,
+            51.33029678,
+            -5.40540971,
+            55.47957108
+          ],
+          "coordinates": [
+            [
+              [
+                -10.76660076,
+                51.33029678
+              ],
+              [
+                -10.76660076,
+                55.47957108
+              ],
+              [
+                -5.40540971,
+                55.47957108
+              ],
+              [
+                -5.40540971,
+                51.33029678
+              ],
+              [
+                -10.76660076,
+                51.33029678
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        },
+        "properties": {
+          "label": "Ireland",
+          "name": "ireland",
+          "tai_id": 900,
+          "type": "national",
+          "type_label": "All Ireland"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Balbriggan",
+          "name": "balbriggan",
+          "tai_id": 15,
+          "type": "urban",
+          "type_label": "Urban"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Dunsany",
+          "name": "dunsany",
+          "tai_id": 18,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Claremorris",
+          "name": "claremorris",
+          "tai_id": 20,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Athenry",
+          "name": "athenry",
+          "tai_id": 21,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Valentia",
+          "name": "valentia",
+          "tai_id": 22,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Gowran",
+          "name": "gowran",
+          "tai_id": 23,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Rose Cottage",
+          "name": "rose-cottage",
+          "tai_id": 24,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Copper Lane",
+          "name": "copper-lane",
+          "tai_id": 25,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Slane",
+          "name": "slane",
+          "tai_id": 26,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Giltown",
+          "name": "giltown",
+          "tai_id": 27,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Ashbourne",
+          "name": "ashbourne",
+          "tai_id": 28,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Lyons estate",
+          "name": "lyons-estate",
+          "tai_id": 29,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Allsaints",
+          "name": "allsaints",
+          "tai_id": 30,
+          "type": "peat",
+          "type_label": "Peat"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Moorepark",
+          "name": "moorepark",
+          "tai_id": 32,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Glencar (UCC)",
+          "name": "glencar",
+          "tai_id": 33,
+          "type": "peat",
+          "type_label": "Peat"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Timoleague",
+          "name": "timoleague",
+          "tai_id": 34,
+          "type": "TBC",
+          "type_label": "TBC"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Duhallow",
+          "name": "duhallow",
+          "tai_id": 35,
+          "type": "TBC",
+          "type_label": "TBC"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Solohead",
+          "name": "solohead",
+          "tai_id": 36,
+          "type": "TBC",
+          "type_label": "TBC"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Boora",
+          "name": "boora",
+          "tai_id": 37,
+          "type": "TBC",
+          "type_label": "TBC"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Near Lullymore",
+          "name": "near-lullymore",
+          "tai_id": 38,
+          "type": "TBC",
+          "type_label": "TBC"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Leitrim",
+          "name": "pollboy",
+          "tai_id": 39,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Leitrim",
+          "name": "gortnaskeagh",
+          "tai_id": 40,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Cregduff (Grass)",
+          "name": "cregduff",
+          "tai_id": 41,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Ballycanew",
+          "name": "ballycanew",
+          "tai_id": 43,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Phoenix Park",
+          "name": "phoenix-park",
+          "tai_id": 44,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Shannon Airport",
+          "name": "shannon-airport",
+          "tai_id": 46,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Dublin Airport",
+          "name": "dublin-airport",
+          "tai_id": 47,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Moore Park",
+          "name": "moore-park",
+          "tai_id": 48,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Sherkin Island",
+          "name": "sherkinisland",
+          "tai_id": 49,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Mullingar",
+          "name": "mullingar",
+          "tai_id": 50,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Roches Point",
+          "name": "roches-point",
+          "tai_id": 51,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Newport",
+          "name": "newport",
+          "tai_id": 52,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Markree",
+          "name": "markree",
+          "tai_id": 53,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Gurteen",
+          "name": "gurteen",
+          "tai_id": 54,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Mountdillon",
+          "name": "mt-dillon",
+          "tai_id": 56,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Finner",
+          "name": "finner",
+          "tai_id": 57,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Belmullet",
+          "name": "belmullet",
+          "tai_id": 58,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Casement",
+          "name": "casement",
+          "tai_id": 59,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Cork Airport",
+          "name": "cork-airport",
+          "tai_id": 60,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Knock Airport",
+          "name": "knock-airport",
+          "tai_id": 61,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Europe",
+          "name": "europe",
+          "tai_id": 990,
+          "type": "multi-national",
+          "type_label": "All Europe"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Wexford Test",
+          "name": "wexford",
+          "tai_id": 62,
+          "type": "airbus",
+          "type_label": "Airbus"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Abbeyshrule",
+          "name": "abbeyshrule",
+          "tai_id": 63,
+          "type": "airbus",
+          "type_label": "Airbus"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Maynooth",
+          "name": "maynooth",
+          "tai_id": 64,
+          "type": "airbus",
+          "type_label": "Airbus"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Kiltale",
+          "name": "kiltale",
+          "tai_id": 65,
+          "type": "airbus",
+          "type_label": "Airbus"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Drogheda",
+          "name": "drogheda",
+          "tai_id": 66,
+          "type": "airbus",
+          "type_label": "Airbus"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "re-use",
+          "name": "re-use",
+          "tai_id": 17,
+          "type": "na",
+          "type_label": "na"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -162.2,
+            -78.2,
+            175.77,
+            78.9
+          ],
+          "coordinates": [
+            [
+              [
+                -162.2,
+                -78.2
+              ],
+              [
+                -162.2,
+                78.9
+              ],
+              [
+                175.77,
+                78.9
+              ],
+              [
+                175.77,
+                -78.2
+              ],
+              [
+                -162.2,
+                -78.2
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        },
+        "properties": {
+          "label": "Global",
+          "name": "global",
+          "tai_id": 999,
+          "type": "global",
+          "type_label": "Global"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.2958262,
+            52.613178,
+            -6.2958262,
+            52.613178
+          ],
+          "coordinates": [
+            -6.2958262,
+            52.613178
+          ],
+          "type": "Point"
+        },
+        "properties": {
+          "label": "Ballycanew",
+          "name": "ballycanew",
+          "tai_id": 42,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.309722,
+            54.051389,
+            -7.309722,
+            54.051389
+          ],
+          "coordinates": [
+            -7.309722,
+            54.051389
+          ],
+          "type": "Point"
+        },
+        "properties": {
+          "label": "Ballyhaise",
+          "name": "ballyhaise",
+          "tai_id": 19,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.254455,
+            52.94711,
+            -7.254455,
+            52.94711
+          ],
+          "coordinates": [
+            [
+              -7.254455,
+              52.94711
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Dooary",
+          "name": "dooary",
+          "tai_id": 11,
+          "type": "forest",
+          "type_label": "Forest"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.641786,
+            53.323069,
+            -7.641786,
+            53.323069
+          ],
+          "coordinates": [
+            [
+              -7.641786,
+              53.323069
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Clara-West",
+          "name": "clara-west",
+          "tai_id": 6,
+          "type": "peat",
+          "type_label": "Peat"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.22333994,
+            53.32111342,
+            -7.22333994,
+            53.32111342
+          ],
+          "coordinates": [
+            [
+              -7.22333994,
+              53.32111342
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Cavemount",
+          "name": "cavemount",
+          "tai_id": 5,
+          "type": "peat",
+          "type_label": "Peat"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.49857389,
+            52.29811693,
+            -6.49857389,
+            52.29811693
+          ],
+          "coordinates": [
+            [
+              -6.49857389,
+              52.29811693
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Johnstown Castle",
+          "name": "johnstown-castle",
+          "tai_id": 8,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.957957,
+            53.2767065,
+            -6.957957,
+            53.2767065
+          ],
+          "coordinates": [
+            [
+              -6.957957,
+              53.2767065
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Lullymore",
+          "name": "lullymore",
+          "tai_id": 9,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.915278,
+            52.861111,
+            -6.915278,
+            52.861111
+          ],
+          "coordinates": [
+            [
+              -6.915278,
+              52.861111
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Oakpark",
+          "name": "oakpark",
+          "tai_id": 10,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.61379116,
+            52.56988012,
+            -6.61379116,
+            52.56988012
+          ],
+          "coordinates": [
+            [
+              -6.61379116,
+              52.56988012
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Castledockrell (crops)",
+          "name": "castledockrell-crops",
+          "tai_id": 13,
+          "type": "crops",
+          "type_label": "Crops"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.59115378,
+            52.58114161,
+            -6.59115378,
+            52.58114161
+          ],
+          "coordinates": [
+            [
+              -6.59115378,
+              52.58114161
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Castledockrell (grass)",
+          "name": "castledockrell-grass",
+          "tai_id": 14,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.979126,
+            53.27957,
+            -6.979126,
+            53.27957
+          ],
+          "coordinates": [
+            [
+              -6.979126,
+              53.27957
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Lullymore (peat)",
+          "name": "lullymore",
+          "tai_id": 31,
+          "type": "peat",
+          "type_label": "Peat"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -9.90452354,
+            53.32672854,
+            -9.90452354,
+            53.32672854
+          ],
+          "coordinates": [
+            [
+              -9.90452354,
+              53.32672854
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Mace Head",
+          "name": "mace-head",
+          "tai_id": 45,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.33944838,
+            55.37182609,
+            -7.33944838,
+            55.37182609
+          ],
+          "coordinates": [
+            [
+              -7.33944838,
+              55.37182609
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Malin Head",
+          "name": "malin-head",
+          "tai_id": 55,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -6.367818,
+            52.177463,
+            -6.367818,
+            52.177463
+          ],
+          "coordinates": [
+            [
+              -6.367818,
+              52.177463
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Carnsore Point",
+          "name": "carnsore",
+          "tai_id": 67,
+          "type": "met",
+          "type_label": "Weather Station"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -8.25221,
+            52.16389,
+            -8.25221,
+            52.16389
+          ],
+          "coordinates": [
+            [
+              -8.25221,
+              52.16389
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Curtin's Farm",
+          "name": "curtins-farm",
+          "tai_id": 7,
+          "type": "grass",
+          "type_label": "Grass"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.10025515,
+            53.01481041,
+            -7.10025515,
+            53.01481041
+          ],
+          "coordinates": [
+            [
+              -7.10025515,
+              53.01481041
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Ballykilcavan",
+          "name": "ballykilcavan",
+          "tai_id": 12,
+          "type": "forest",
+          "type_label": "Forest"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Tullamore",
+          "name": "tullamore",
+          "tai_id": 68,
+          "type": null,
+          "type_label": null
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": {
+          "bbox": [
+            -7.1589537,
+            53.27422373,
+            -7.1589537,
+            53.27422373
+          ],
+          "coordinates": [
+            [
+              -7.1589537,
+              53.27422373
+            ]
+          ],
+          "type": "MultiPoint"
+        },
+        "properties": {
+          "label": "Colgagh",
+          "name": "colgagh",
+          "tai_id": 16,
+          "type": "forest",
+          "type_label": "Forest"
+        },
+        "type": "Feature"
+      },
+      {
+        "geometry": null,
+        "properties": {
+          "label": "Dowth",
+          "name": "dowth",
+          "tai_id": 69,
+          "type": "crns",
+          "type_label": "IOT"
+        },
+        "type": "Feature"
+      }
+    ],
+    "type": "FeatureCollection"
+  }
+]
