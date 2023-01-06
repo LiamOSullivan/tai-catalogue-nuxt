@@ -210,6 +210,8 @@
                 class="form-control-sm"
               />
             </div>
+          </div>
+          <div class="row m-2">
             <div class="col-6 m-0">
               <label>T-AI Benchmark Sites ({{ sites.length }}) </label>
               <!-- <div>Selected: {{ nameFilter }}</div> -->
@@ -456,7 +458,7 @@ export default Vue.extend({
         ].forEach((key) => {
           f[key] = f.getProperties()[key];
         });
-        console.log(f.name);
+        // console.log(f.name);
 
         this.records.push(f);
         cache.push(f); // init the cache
@@ -473,12 +475,19 @@ export default Vue.extend({
       });
 
       sitesAsFeatures.forEach((f: any) => {
-        ["name", "label", "tai_id", "type_label"].forEach((key) => {
+        ["name", "label"].forEach((key) => {
           f[key] = f.getProperties()[key];
         });
         // console.log(f.name, f.label, f.tai_id);
       });
-      this.sites = sitesAsFeatures;
+      this.sites = sitesAsFeatures.sort(function (a, b) {
+        if (a.name < b.name) {
+          return -1;
+        } else if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
     } catch (error) {
       console.log("error fetching data " + error);
     }
@@ -500,9 +509,9 @@ export default Vue.extend({
   },
   methods: {
     filterListProperties,
-    // startsWithFilter(value: string) {
-    //   return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
-    // },
+    startsWithFilter(value: string) {
+      return value.toLowerCase().startsWith(this.startsWith.toLowerCase());
+    },
     getViewerUrl(row: any) {
       // TODO: do empty table values return undefined?
       const hasUrl =
