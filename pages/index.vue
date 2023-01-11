@@ -211,16 +211,20 @@
             </div>
           </div>
           <div class="row m-2">
-            <div class="col-6 m-0">
-              <label>T-AI Benchmark Sites ({{ sites.length }}) </label>
-              <!-- <div>Selected: {{ nameFilter }}</div> -->
+            <div class="col-12 m-0">
+              <label
+                >Locations (Incl. {{ sites.length }} benchmark sites)
+              </label>
+            </div>
+            <!-- <div>Selected: {{ nameFilter }}</div> -->
+            <div class="col-6 pr-2 m-0">
               <select
                 id="select-site"
                 class="form-control-sm"
                 v-model="nameFilter"
               >
-                <option disabled value="-1">Please select site</option>
-                <option value="">All</option>
+                <option disabled value="-1">Please select location</option>
+                <option value="">Any</option>
                 <option
                   :value="site.name"
                   v-for="site in sites"

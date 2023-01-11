@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="row" style="width: 100%; min-height: inherit; height: inherit">
-      <div class="mb-1 mb-md-0" style="min-height: 200px; height: 50vh">
-        <label>Filter Results by Area</label>
+      <div class="mb-1 mb-md-0" style="min-height: 172px; height: 40vh">
         <div ref="map-root" style="width: 100%; height: 90%" />
       </div>
     </div>
@@ -16,8 +15,8 @@
             }}</small>
           </p>
         </div> -->
-        <div id="map-filter__controls__btns">
-          <!-- <div style="display: inline-block">
+
+        <!-- <div style="display: inline-block">
             <label for="customSwitches"
               ><small
                 >Within bounds only (exclude intersecting datasets)</small
@@ -31,27 +30,31 @@
             />
           </div>
           <br /> -->
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-primary"
-            @click.prevent="emitExtent()"
-          >
-            Apply
-          </button>
+        <div class="row">
+          <!-- <div id="map-filter__controls__btns">
+            <label class="p-0">Shift-drag to filter results by area</label>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-primary"
+              @click.prevent="emitExtent()"
+            >
+              Apply
+            </button>
 
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-primary"
-            @click.prevent="clearExtent()"
-          >
-            Clear
-          </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-primary"
+              @click.prevent="clearExtent()"
+            >
+              Clear
+            </button>
+          </div> -->
         </div>
-        <label for="count" style="margin-top: 8px"
+      </div>
+      <!-- <label for="count" style="margin-top: 8px"
           >Filtered Records count:
         </label>
-        <small id="count">{{ dsIndexes.length }}</small>
-      </div>
+        <small id="count">{{ dsIndexes.length }}</small> -->
     </div>
   </div>
 </template>
@@ -114,7 +117,7 @@ export default {
       view: new View({
         center: [-900000, 7046600], // default: Ireland
         zoom: 6, // default countrywide,
-        constrainResolution: true,
+        constrainResolution: false,
       }),
     });
 
@@ -139,12 +142,12 @@ export default {
     }
     const self = this;
     this.map.on("pointermove", function (evt) {
-      if (evt.dragging && extentInteraction.getExtent()) {
-        self.extent = extentInteraction.getExtent().map((e) => {
-          return parseFloat(e.toFixed(2));
-        });
-        console.log(self.extent);
-      }
+      // if (evt.dragging && extentInteraction.getExtent()) {
+      //   self.extent = extentInteraction.getExtent().map((e) => {
+      //     return parseFloat(e.toFixed(2));
+      //   });
+      //   console.log(self.extent);
+      // }
     });
 
     this.map.on("click", function (evt) {});
@@ -195,22 +198,22 @@ export default {
         const newExtent = source.getExtent();
         view.fit(newExtent, {
           padding: [0, 25, 0, 25],
-          duration: 250,
+          duration: 500,
         });
       }
     },
     emitExtent() {
       // console.log("emit extent: ", this.extent);
       this.$emit("extent", this.extent);
-      // if (this.extent) {
-      //   const view = this.map.getView();
-      //   // this zooms the view on the created object
+      if (this.extent) {
+        const view = this.map.getView();
+        // this zooms the view on the created object
 
-      //   view.fit(this.extent, {
-      //     padding: [0, 25, 0, 25],
-      //     duration: 500,
-      //   });
-      // }
+        view.fit(this.extent, {
+          padding: [0, 25, 0, 25],
+          duration: 500,
+        });
+      }
     },
     clearExtent() {
       if (this.map !== null) {
@@ -248,10 +251,11 @@ export default {
 }
 #map-filter__controls__btns {
   min-height: 50%;
-  gap: 8px;
+  gap: 16px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 .btn {
   max-width: 120px;
