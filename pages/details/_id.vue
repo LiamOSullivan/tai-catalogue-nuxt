@@ -236,7 +236,7 @@ export default Vue.extend({
         ...displayProps
       } = features[0].getProperties();
       // console.log(displayProps);
-      // console.log(tai_id);
+      console.log(tai_id);
 
       this.data = displayProps;
       this.poly =
@@ -248,11 +248,12 @@ export default Vue.extend({
       this.tai_id = tai_id;
       console.log(displayProps);
 
-      if (!!validSites[tai_id] && displayProps.ref === "in-situ") {
+      if (!!validSites[tai_id] && displayProps.sub_cat === "Flux") {
         const baseAttrURL =
           "https://taidashboardlayers.blob.core.windows.net/dashboard-storage/catalogue_temp_data_sources/";
         if (validSites[tai_id].attr_table) {
           this.hasAttributes = true;
+          console.log(validSites[tai_id].attr_table);
           const attrURL = baseAttrURL + validSites[tai_id].attr_table;
           const self = this;
           Papa.parse(attrURL, {
