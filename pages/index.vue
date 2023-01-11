@@ -27,7 +27,6 @@
       :ds-data="records"
       :ds-filter-fields="{
         ref: refFilter,
-        project: projectFilter,
         name: nameFilter,
       }"
       :ds-sortby="[sortResourceTitle]"
@@ -43,7 +42,7 @@
       <div class="row no-gutters">
         <div class="col-5 m-0 p-0" id="search-col">
           <div class="row m-2">
-            <div class="col-6 m-0">
+            <!-- <div class="col-6 m-0">
               <label for="ref-buttons" style="padding-bottom: 24px"
                 >Project</label
               >
@@ -109,8 +108,8 @@
                   Terrain-AI
                 </button>
               </div>
-            </div>
-            <div class="col-6 m-0">
+            </div> -->
+            <div class="col-12 m-0">
               <label style="padding-bottom: 24px" for="ref-buttons"
                 >Reference</label
               >
@@ -206,7 +205,7 @@
             <div class="col-6 m-0">
               <label> Text Search</label>
               <dataset-search
-                ds-search-placeholder="Search for a word or an exact phrase"
+                ds-search-placeholder="Search for a word or exact phrase"
                 class="form-control-sm"
               />
             </div>
