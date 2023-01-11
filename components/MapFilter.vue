@@ -197,7 +197,7 @@ export default {
         // this zooms the view on the created object
         const newExtent = source.getExtent();
         view.fit(newExtent, {
-          padding: [0, 25, 0, 25],
+          padding: [50, 50, 50, 50],
           duration: 500,
         });
       }

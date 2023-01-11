@@ -212,9 +212,7 @@
           </div>
           <div class="row m-2">
             <div class="col-12 m-0">
-              <label
-                >Locations (Incl. {{ sites.length }} benchmark sites)
-              </label>
+              <label>Locations / Sites ({{ sites.length }})</label>
             </div>
             <!-- <div>Selected: {{ nameFilter }}</div> -->
             <div class="col-6 pr-2 m-0">
