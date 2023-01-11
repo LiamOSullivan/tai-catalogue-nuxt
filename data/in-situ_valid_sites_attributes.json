@@ -185,6 +185,60 @@
       }
     ]
   },
+  "13": {
+    "name": "castledockrell-crops",
+    "title": "Castledockrell Crops",
+    "details": "Flux Tower at Castledockrell site. Terrain type: cropland.",
+    "dates": {
+      "start": "2022-07-30",
+      "end": "2022-07-31"
+    },
+    "attr_table": "cd-grass_attribute_table.csv",
+    "attr": [
+      {
+        "title": "CO2 Flux",
+        "code": "FCO2_cmdsgf_FFA_Un",
+        "y_axis_label": "FCO2%20(umol%2B1s-1m-2)",
+        "active": true
+      },
+      {
+        "title": "Gross Primary Productivity",
+        "code": "GPP_NT",
+        "y_axis_label": "umol%2B1s-1m-2",
+        "active": true
+      },
+      {
+        "title": "Sensible Heat Flux",
+        "code": "H_mdsgf",
+        "y_axis_label": "W%2Fm%5E2",
+        "active": true
+      },
+      {
+        "title": "Latent Heat Flux",
+        "code": "LE_cmdsgf",
+        "y_axis_label": "W%2Fm%5E2",
+        "active": true
+      },
+      {
+        "title": "NETRAD_1_1_1",
+        "code": "NETRAD_1_1_1",
+        "y_axis_label": "units",
+        "active": false
+      },
+      {
+        "title": "TS_average",
+        "code": "TS_average",
+        "y_axis_label": "units",
+        "active": false
+      },
+      {
+        "title": "TA_1_1_1",
+        "code": "TA_1_1_1f",
+        "y_axis_label": "units",
+        "active": false
+      }
+    ]
+  },
   "14": {
     "name": "castledockrell-grass",
     "title": "Castledockrell Grass",

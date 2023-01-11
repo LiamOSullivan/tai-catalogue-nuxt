@@ -71,6 +71,10 @@ typings/
 # Nuxt generate
 dist
 
+#archive dists for rollback
+dist-main.zip
+dist.zip
+
 # vuepress build output
 .vuepress/dist
 
