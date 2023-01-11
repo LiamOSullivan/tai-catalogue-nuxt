@@ -460,7 +460,7 @@ export default Vue.extend({
         // console.log(f.name);
 
         this.records.push(f);
-        cache.push(f); // init the cache
+        // cache.push(f); // init the cache
       });
     } catch (error) {
       console.log("error fetching data " + error);
@@ -539,27 +539,26 @@ export default Vue.extend({
       window.location.href = `/details/${id}`;
     },
     filterOnExtent(extent: any) {
-      if (extent) {
-        const recordsSource = new Vector({
-          features: this.records,
-        });
-        let recordsIxFeatures: any[] = [];
-        recordsIxFeatures = recordsSource.getFeaturesInExtent(extent);
-        console.log(recordsIxFeatures.length);
-        recordsIxFeatures = recordsIxFeatures.filter((f) => {
-          return containsExtent(extent, f.getGeometry().getExtent());
-        });
-        console.log(recordsIxFeatures.length);
-
-        // recordsSource.forEachFeatureInExtent(extent, (f) => {
-        //   recordsIxFeatures.push(f);
-        //   return false;
-        // });
-        cache = this.records;
-        this.records = recordsIxFeatures;
-      } else {
-        this.records = cache;
-      }
+      // if (extent) {
+      //   const recordsSource = new Vector({
+      //     features: this.records,
+      //   });
+      //   let recordsIxFeatures: any[] = [];
+      //   recordsIxFeatures = recordsSource.getFeaturesInExtent(extent);
+      //   console.log(recordsIxFeatures.length);
+      //   recordsIxFeatures = recordsIxFeatures.filter((f) => {
+      //     return containsExtent(extent, f.getGeometry().getExtent());
+      //   });
+      //   console.log(recordsIxFeatures.length);
+      //   // recordsSource.forEachFeatureInExtent(extent, (f) => {
+      //   //   recordsIxFeatures.push(f);
+      //   //   return false;
+      //   // });
+      //   cache = this.records;
+      //   this.records = recordsIxFeatures;
+      // } else {
+      //   this.records = cache;
+      // }
     },
     print(text: string) {
       console.log(text);

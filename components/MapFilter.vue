@@ -131,7 +131,7 @@ export default {
         }),
       }),
     });
-    this.map.addInteraction(extentInteraction);
+    // this.map.addInteraction(extentInteraction);
 
     // // call`updateSource` to initialise
     if (this.features !== null) {
@@ -150,12 +150,12 @@ export default {
     this.map.on("click", function (evt) {});
   },
   watch: {
-    features: {
-      handler: function (fs) {
-        this.updateSource(fs);
-      },
-      deep: true,
-    },
+    // features: {
+    //   handler: function (fs) {
+    //     this.updateSource(fs);
+    //   },
+    //   deep: true,
+    // },
     dsIndexes: {
       handler: function (dsI) {
         // console.log("index change");
@@ -182,12 +182,12 @@ export default {
       return filteredFeatures;
     },
     // this will parse the input data and add it to the map
-    updateSource(features) {
+    updateSource(updatedFeatures) {
       // console.log("update source");
 
       const source = this.featureLayer.getSource();
       source.clear();
-      source.addFeatures(features);
+      source.addFeatures(updatedFeatures);
 
       if (source.getFeatures().length > 0) {
         const view = this.map.getView();
@@ -195,7 +195,7 @@ export default {
         const newExtent = source.getExtent();
         view.fit(newExtent, {
           padding: [0, 25, 0, 25],
-          duration: 500,
+          duration: 250,
         });
       }
     },
